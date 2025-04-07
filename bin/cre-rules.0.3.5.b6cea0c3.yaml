@@ -1,0 +1,118 @@
+rules:
+    - metadata:
+        id: 5UD1RZxGC5LJQnVpAkV11A
+        hash: 3JJigAvM37cTd12UHSUAW62ESCbmsyoP8yaLMG2ciZHn
+        kind: rules
+      cre:
+        id: CRE-2024-0007
+        title: RabbitMQ Mnesia overloaded recovering persistent queues
+        category: message-queue-problems
+        tags:
+            - cre-2024-0007
+            - known-problem
+            - rabbitmq
+        author: Prequel
+        description: "- Look at the logs for the RabbitMQ container with the detection.\n- Note the discarded messages and warning that Mnesia is overloaded (`** WARNING ** Mnesia is overloaded`).\n- Review process data to view the CPU usage for the RabbitMQ cluster container\n- The RabbitMQ cluster is processing a large number of persistent mirrored queues at boot. \n- High CPU usage indicates that the cluster is starving for additional CPU resources.\n"
+        impact: |
+            - RabbitMQ is unable to process any new messages, which can lead to outages in consumers and producers.
+        cause: "- There are so many that the underlying Erlang process, Mnesia, is reporting that it is overloaded while recoving these queues on boot. \n"
+        mitigation: "- Increase the size of the cluster\n- Increase the Kubernetes CPU limits for the RabbitMQ brokers\n- Consider adjusting mirroring policies to limit the number of mirrored queues\n- Remove high-availability policies from queues where it is not needed\n- Consider using [lazy queues](https://www.rabbitmq.com/docs/lazy-queues) to avoid incurring the costs of writing data to disk \n"
+        references:
+            - https://groups.google.com/g/rabbitmq-users/search?q=discarding%20message
+        applications:
+            - name: rabbitmq
+              version: 3.9.x
+      rule:
+        sequence:
+            window: 30s
+            event:
+                source: rabbitmq
+            order:
+                - regex: Discarding message(.+)in an old incarnation(.+)of this node
+                - value: Mnesia is overloaded
+            negate:
+                - value: SIGTERM received - shutting down
+    - metadata:
+        id: rBj7HEGesPj8suW6G3DvrJ
+        hash: 9tYbXspjokxGYy4h77Y22XzMKYKC87cG51rAc5XX6beA
+        kind: rules
+      cre:
+        id: CRE-2024-0016
+        severity: 3
+        title: Google Kubernetes Engine metrics agent failing to export metrics
+        category: observability-problems
+        tags:
+            - cre-2024-0016
+            - known-problem
+            - gke
+        author: Prequel
+        description: The Google Kubernetes Engine metrics agent is failing to export metrics.
+        impact: |
+            - Metrics will be missing from the GKE cluster.
+            - Autoscalers using these metrics will not be able to scale the workload.
+        cause: |
+            The GKE team is aware of this issue and is working on a fix.
+        mitigation: |
+            - `gcloud logging sinks update _Default --add-exclusion=name=exclude-unimportant-gke-metadata-server-logs,filter=' resource.type = "k8s_container" resource.labels.namespace_name = "kube-system" resource.labels.pod_name =~ "gke-metadata-server-.*" resource.labels.container_name = "gke-metadata-server" severity <= "INFO" '`
+        references:
+            - https://www.googlecloudcommunity.com/gc/Google-Kubernetes-Engine-GKE/Persistent-GKE-Metrics-Agent-Errors-Following-Manual-Upgrade-to/m-p/745413
+        applications:
+            - name: Google Kubernetes Engine (GKE)
+              version: 1.28.x
+            - name: Google Kubernetes Engine (GKE)
+              version: 1.29.x
+            - name: Google Kubernetes Engine (GKE)
+              version: 1.30.x
+            - name: Google Kubernetes Engine (GKE)
+              version: 1.31.x
+      rule:
+        set:
+            event:
+                source: gke-metrics-agent
+            match:
+                - regex: Failed to export(.+)metrics(.+)Please retry(.+)contact support
+    - metadata:
+        id: HeGWs7nohNoRkbz9tBiQfC
+        hash: BsNNmQfmwjreJdBChDXKCsJbXFerepS4PpCVWEKxdLu1
+        kind: rules
+      cre:
+        id: CRE-2024-0021
+        severity: 1
+        title: KEDA operator reconciler ScaledObject panic
+        category: operator-problems
+        tags:
+            - keda
+            - crash
+            - known-problem
+        author: Prequel
+        description: |
+            KEDA allows for fine-grained autoscaling (including to/from zero) for event driven Kubernetes workloads. KEDA serves as a Kubernetes Metrics Server and allows users to define autoscaling rules using a dedicated Kubernetes custom resource definition.
+        impact: |
+            Until the ScaledObject is deleted or KEDA is upgraded, the KEDA operator will continue to crash when reconciling ScaledObjects.
+        cause: |
+            There is a known issue with the KEDA operator where the scalers cache from the ScaledObject controller is not being properly initialized. This can cause the KEDA operator to crash.
+        mitigation: |
+            - Upgrade to KEDA 2.16.1 or newer
+            - Deleting the ScaledObjects on the failing cluster will also allow KEDA recovered
+        references:
+            - https://github.com/kedacore/keda/issues/4207
+        applications:
+            - name: KEDA Operator
+              containerName: keda-operator
+              imageUrl: ghcr.io/kedacore/keda:2.9.2
+              version: 2.9.2
+            - name: KEDA Operator
+              containerName: keda-operator
+              imageUrl: ghcr.io/kedacore/keda:2.13.1
+              version: 2.13.0
+      rule:
+        set:
+            window: 1s
+            event:
+                source: keda-operator
+            match:
+                - value: 'panic: runtime error:'
+                - value: ResolveScaleTargetPodSpec
+                - value: scale_resolvers.go:71
+                - value: performGetScalersCache
+terms: {}

@@ -1,0 +1,40 @@
+2023-02-06T20:35:52Z    INFO    Reconciling ScaledObject        {"controller": "scaledobject", "controllerGroup": "keda.sh", "controllerKind": "ScaledObject", "ScaledObject": {"name":"coredns","namespace":"kube-system"}, "namespace": "kube-system", "name": "coredns", "reconcileID": "5ac35739-5e1f-47e5-80d3-7630e1d3d890"}
+2023-02-06T20:35:52Z    INFO    Observed a panic in reconciler: runtime error: invalid memory address or nil pointer dereference               {"controller": "scaledobject", "controllerGroup": "keda.sh", "controllerKind": "ScaledObject", "ScaledObject": {"name":"coredns","namespace":"kube-system"}, "namespace": "kube-system", "name": "coredns", "reconcileID": "5ac35739-5e1f-47e5-80d3-7630e1d3d890"}
+panic: runtime error: invalid memory address or nil pointer dereference [recovered]
+        panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x2dcf3df]
+
+goroutine 330 [running]:
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile.func1()
+        /workspace/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:118 +0x1f4
+panic({0x32ec900, 0x602e770})
+        /usr/local/go/src/runtime/panic.go:838 +0x207
+github.com/kedacore/keda/v2/pkg/scaling/resolver.ResolveScaleTargetPodSpec({0x40bfa10, 0xc0005d11a0}, {0x40cd790, 0xc00030f4a0}, {{0x40c6200?, 0xc001224210?}, 0x30f0760?}, {0x3873b80?, 0xc000c38200?})
+        /workspace/pkg/scaling/resolver/scale_resolvers.go:71 +0x13f
+github.com/kedacore/keda/v2/pkg/scaling.(*scaleHandler).performGetScalersCache(0xc00121d560, {0x40bfa10, 0xc0005d11a0}, {0xc000f9c4c0, 0x20}, {0x3873b80, 0xc000c38200}, 0xc0017f6f20, {0x0, 0x0}, ...)
+        /workspace/pkg/scaling/scale_handler.go:264 +0x6db
+github.com/kedacore/keda/v2/pkg/scaling.(*scaleHandler).GetScalersCache(0xc0017f6f98?, {0x40bfa10, 0xc0005d11a0}, {0x3873b80, 0xc000c38200})
+        /workspace/pkg/scaling/scale_handler.go:190 +0xf6
+github.com/kedacore/keda/v2/controllers/keda.(*ScaledObjectReconciler).getScaledObjectMetricSpecs(0xc000665e60, {0x40bfa10, 0xc0005d11a0}, {{0x40c6200?, 0xc0005d11d0?}, 0xc0006ff3d0?}, 0xc000c38200)
+        /workspace/controllers/keda/hpa.go:200 +0x8c
+github.com/kedacore/keda/v2/controllers/keda.(*ScaledObjectReconciler).newHPAForScaledObject(0xc000665e60, {0x40bfa10?, 0xc0005d11a0?}, {{0x40c6200?, 0xc0005d11d0?}, 0x38183c0?}, 0xc000c38200, 0xc0017f7608)
+        /workspace/controllers/keda/hpa.go:74 +0x66
+github.com/kedacore/keda/v2/controllers/keda.(*ScaledObjectReconciler).updateHPAIfNeeded(0xc000665e60, {0x40bfa10, 0xc0005d11a0}, {{0x40c6200?, 0xc0005d11d0?}, 0xc0005d11a0?}, 0xc000c38200, 0xc000662000, 0xc0006a5140?)
+        /workspace/controllers/keda/hpa.go:152 +0x7b
+github.com/kedacore/keda/v2/controllers/keda.(*ScaledObjectReconciler).ensureHPAForScaledObjectExists(0xc000665e60, {0x40bfa10, 0xc0005d11a0}, {{0x40c6200?, 0xc0005d11d0?}, 0x40c6200?}, 0xc000c38200, 0x0?)
+        /workspace/controllers/keda/scaledobject_controller.go:427 +0x238
+github.com/kedacore/keda/v2/controllers/keda.(*ScaledObjectReconciler).reconcileScaledObject(0xc000665e60?, {0x40bfa10, 0xc0005d11a0}, {{0x40c6200?, 0xc0005d11d0?}, 0xc0006ff3d0?}, 0xc000c38200)
+        /workspace/controllers/keda/scaledobject_controller.go:230 +0x1c9
+github.com/kedacore/keda/v2/controllers/keda.(*ScaledObjectReconciler).Reconcile(0xc000665e60, {0x40bfa10, 0xc0005d11a0}, {{{0xc0006ff3e0?, 0x10?}, {0xc0006ff3d0?, 0x40d787?}}})
+        /workspace/controllers/keda/scaledobject_controller.go:176 +0x526
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile(0x40bf968?, {0x40bfa10?, 0xc0005d11a0?}, {{{0xc0006ff3e0?, 0x370f080?}, {0xc0006ff3d0?, 0x4041f4?}}})
+        /workspace/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:121 +0xc8
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler(0xc00121ba40, {0x40bf968, 0xc00118ff00}, {0x34329a0?, 0xc0000a05a0?})
+        /workspace/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:320 +0x33c
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem(0xc00121ba40, {0x40bf968, 0xc00118ff00})
+        /workspace/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:273 +0x1d9
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2()
+        /workspace/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:234 +0x85
+created by sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2
+        /workspace/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:230 +0x325
+2023-02-06T20:35:53Z INFO asdf
