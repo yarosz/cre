@@ -2,8 +2,6 @@ package ruler
 
 import (
 	"bytes"
-	"crypto/sha256"
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"os"
@@ -246,29 +244,16 @@ func _build(vers, inPath, outPath, packageName string) error {
 		return err
 	}
 
-	hash := _sha256(doc)
-
-	fileName := makeFilename(packageName, vers, hash)
+	fileName := makeFilename(packageName, vers)
 	fullPath := filepath.Join(outPath, fileName)
 
 	if err = writeFile(fullPath, doc); err != nil {
 		return err
 	}
 
-	hashPath := fmt.Sprintf("%s.sha256", fullPath)
-	if err = writeFile(hashPath, []byte(hash)); err != nil {
-		return err
-	}
-
-	fmt.Printf("Wrote file [sha256 %s]: %s\n", hash, fileName)
-	fmt.Printf("Wrote hash file: %s\n", hashPath)
+	fmt.Printf("Wrote file: %s\n", fileName)
 
 	return nil
-}
-
-func _sha256(data []byte) string {
-	sum := sha256.Sum256(data)
-	return hex.EncodeToString(sum[:])
 }
 
 func writeFile(fn string, data []byte) error {
@@ -284,22 +269,16 @@ func writeFile(fn string, data []byte) error {
 	return fh.Close()
 }
 
-func makeFilename(name, vers, hash string) string {
+func makeFilename(name, vers string) string {
 	name = strings.TrimSuffix(name, ".yaml")
 	vers = strings.TrimPrefix(vers, "v")
 
-	buildMeta := fmt.Sprintf(".%s", hash[:8])
-
-	return fmt.Sprintf("%s.%s%s.yaml", name, vers, buildMeta)
+	return fmt.Sprintf("%s.%s.yaml", name, vers)
 }
 
 // Convert to document per section
 
 func generateDocument(rules map[string]parser.ParseRuleT, terms map[string]parser.ParseTermT) ([]byte, error) {
-
-	type docT struct {
-		Rules []any `yaml:"rules,omitempty"`
-	}
 
 	// Gather keys to produce consistent order output
 	ruleKeys := make([]string, 0, len(rules))

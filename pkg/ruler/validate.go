@@ -27,8 +27,6 @@ var (
 
 type dupesT map[string]struct{}
 type tagsT dupesT
-type rulesT dupesT
-type termsT dupesT
 
 func validateTagsFields(t RuleIncludeT, tags tagsT) error {
 
