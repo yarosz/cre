@@ -1,0 +1,49 @@
+rules:
+- cre:
+    id: CRE-2025-0028
+    severity: 3
+    title: OpenTelemetry Python fails to detach context token across async boundaries
+    category: observability
+    author: Prequel
+    description: 'In OpenTelemetry Python, detaching a context token that was created in a different context can raise a `ValueError`. This occurs when asynchronous operations, such as generators or coroutines, are finalized in a different context than they were created, leading to context management errors and potential trace data loss.
+
+      '
+    cause: 'The issue arises when a context token is reset in a different context than it was created, violating the expectations of Python''s `contextvars` module. This is common in asynchronous workflows where the lifecycle of context tokens spans multiple contexts.
+
+      '
+    tags:
+    - opentelemetry
+    - python
+    - contextvars
+    - async
+    - observability
+    - known-issue
+    mitigation: '- Ensure that context tokens are detached in the same context they were created.
+
+      - Use `contextlib.aclosing()` to manage asynchronous generators properly.
+
+      - Upgrade to a version of OpenTelemetry Python where this issue is addressed.
+
+      '
+    references:
+    - https://github.com/open-telemetry/opentelemetry-python/issues/2606
+    - https://github.com/python/cpython/issues/118944
+    applications:
+    - name: opentelemetry-python
+      version: <1.13.0
+      containerName: otel-python
+    impact: degraded volume lifecycle (e.g., stuck PVC)
+    impactScore: 6
+    mitigationScore: 1
+    reports: 3
+  metadata:
+    kind: rules
+    id: VstbEc2SVyCjLbEyhuimXk
+    hash: 13b5652c2cc656c92ce80a3655553a9a
+    gen: 1
+  rule:
+    set:
+      event:
+        source: opentelemetry
+      match:
+      - ERROR opentelemetry.context:Failed to detach context

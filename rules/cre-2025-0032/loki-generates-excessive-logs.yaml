@@ -1,0 +1,51 @@
+rules:
+- cre:
+    id: CRE-2025-0032
+    severity: 3
+    title: Loki generates excessive logs when memcached service port name is incorrect
+    category: configuration
+    author: Prequel
+    description: 'Loki instances using memcached for caching may emit excessive warning or error logs when the configured
+
+      `memcached_client` service port name does not match the actual Kubernetes service port. This does not cause
+
+      a crash or failure, but it results in noisy logs and ineffective caching behavior.
+
+      '
+    cause: 'Loki''s memcached client resolves the service by port name. If the port name is incorrect or not present in the
+
+      Kubernetes service definition, the client fails to connect silently or repeatedly logs errors while retrying.
+
+      '
+    tags:
+    - loki
+    - memcached
+    - configuration
+    - service
+    - cache
+    - known-issue
+    - kubernetes
+    mitigation: "- Ensure that the `memcached_client` configuration references the correct Kubernetes service **port name**.\n- Match the port name exactly as defined in your memcached service. For example:\n  ```yaml\n  ports:\n    - name: memcache\n      port: 11211\n  ```\n- Update your Helm values or Loki configuration accordingly.\n"
+    references:
+    - https://github.com/grafana/loki/issues/12714
+    - https://github.com/grafana/loki/issues/12714#issuecomment-2110724290
+    applications:
+    - name: loki
+      version: <3.0.0
+      containerName: loki
+    impact: cache connection error, noisy logs
+    impactScore: 2
+    mitigationScore: 4
+    reports: 5
+  metadata:
+    kind: rules
+    id: 8LBoHzFdJy9RP4tZcpry2T
+    hash: d5ca6369731bc9a378b02e4c4426bb8d
+    gen: 1
+  rule:
+    set:
+      event:
+        source: logs
+      window: 5s
+      match:
+      - regex: '.*msg="failed to connect to memcached server.*lookup .* on .*: no such host.*'

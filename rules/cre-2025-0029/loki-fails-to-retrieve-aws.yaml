@@ -1,0 +1,46 @@
+rules:
+- cre:
+    id: CRE-2025-0029
+    severity: 3
+    title: Loki fails to retrieve AWS credentials when specifying S3 endpoint with IRSA
+    category: storage
+    author: Prequel
+    description: 'When deploying Grafana Loki with AWS S3 as the storage backend and specifying a custom S3 endpoint (e.g., for FIPS compliance or GovCloud regions), Loki may fail to retrieve AWS credentials via IAM Roles for Service Accounts (IRSA). This results in errors during startup or when attempting to upload index tables, preventing Loki from functioning correctly.
+
+      '
+    cause: 'The issue arises when the Loki configuration includes a custom `endpoint` for S3 and relies on IRSA for authentication. In such cases, Loki encounters a `WebIdentityErr` and `SerializationError` due to improper handling of credential retrieval with the specified endpoint.
+
+      '
+    tags:
+    - loki
+    - s3
+    - aws
+    - irsa
+    - storage
+    - authentication
+    - helm
+    - known-issue
+    mitigation: "- In your Helm chart values, explicitly set `accessKeyId` and `secretAccessKey` to `null` to prevent default values from interfering with IRSA authentication.\n- Example configuration:\n  ```yaml\n  loki:\n    config:\n      storage_config:\n        aws:\n          access_key_id: null\n          secret_access_key: null\n  ```\n- Ensure that the IAM role associated with the service account has the necessary permissions to access the specified S3 buckets.\n"
+    references:
+    - https://github.com/grafana/loki/issues/12095
+    - https://github.com/grafana/helm-charts/issues/1550#issuecomment-1180365429
+    applications:
+    - name: loki
+      version: <2.8.0
+      containerName: loki
+    impact: service startup failure
+    impactScore: 6
+    mitigationScore: 5
+    reports: 4
+  metadata:
+    kind: rules
+    id: EnPkxu5326sxXBYXMSUqQv
+    hash: 2484383e1065d7a6589484f2b151bff4
+    gen: 1
+  rule:
+    set:
+      event:
+        source: logs
+      window: 5s
+      match:
+      - regex: '.*WebIdentityErr: failed to retrieve credentials.*SerializationError.*'

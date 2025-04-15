@@ -1,0 +1,52 @@
+rules:
+- cre:
+    id: CRE-2025-0031
+    severity: 2
+    title: Django returns DisallowedHost error for untrusted HTTP_HOST headers
+    category: configuration
+    author: Prequel
+    description: 'Django applications may return a "DisallowedHost" error when receiving requests with an unrecognized or missing Host header.
+
+      This typically occurs in production environments where reverse proxies, load balancers, or external clients send requests
+
+      using an unexpected domain or IP address. Django blocks these requests unless the domain is explicitly listed in `ALLOWED_HOSTS`.
+
+      '
+    cause: 'The error is raised when the HTTP request contains a Host header not present in the Django `ALLOWED_HOSTS` setting.
+
+      This is a security measure to prevent HTTP Host header attacks and request spoofing.
+
+      '
+    tags:
+    - django
+    - disallowedhost
+    - configuration
+    - web
+    - security
+    - host-header
+    - known-issue
+    mitigation: "- Add the incoming domain, IP address, or wildcard pattern to `ALLOWED_HOSTS` in your Django settings.\n- For example:\n  ```python\n  ALLOWED_HOSTS = ['example.com', 'www.example.com', '127.0.0.1']\n  ```\n- During development, you can use:\n  ```python\n  ALLOWED_HOSTS = ['*']\n  ```\n  (Note: This is insecure for production.)\n- For applications behind a load balancer or ingress, ensure it forwards the correct Host header.\n"
+    references:
+    - https://docs.djangoproject.com/en/stable/ref/settings/#allowed-hosts
+    - https://stackoverflow.com/questions/40582423/how-to-fix-django-error-disallowedhost-at-invalid-http-host-header-you-m
+    - https://docs.djangoproject.com/en/stable/topics/security/#host-header-validation
+    applications:
+    - name: django
+      version: '>=1.10'
+      containerName: web
+    impact: unspecified
+    impactScore: 5
+    mitigationScore: 5
+    reports: 20
+  metadata:
+    kind: rules
+    id: BRitC3dqcqJATFUTWLsPGT-Django-2025
+    hash: aceee9e7a63e1e30f3dfa746a9f2768e
+    gen: 1
+  rule:
+    set:
+      event:
+        source: logs
+      window: 5s
+      match:
+      - regex: '.*DisallowedHost: Invalid HTTP_HOST header.*'
