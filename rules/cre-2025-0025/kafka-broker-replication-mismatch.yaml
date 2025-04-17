@@ -1,0 +1,39 @@
+rules:
+  - cre:
+      id: CRE-2025-0025
+      severity: 2
+      title: Kafka broker replication mismatch
+      category: message-queue-problems
+      author: Prequel
+      description: |
+        When the configured replication factor for a Kafka topic is greater than the actual number of brokers in the cluster, Kafka repeatedly fails to assign partitions and logs replication-related errors. This results in persistent warnings or an `InvalidReplicationFactorException` when the broker tries to create internal or user-defined topics.
+      cause: |
+        There are not enough brokers to fulfill the specified replication factor, preventing valid partition assignments.
+      impact: |
+        Exceeding the available brokers with a higher replication factor can lead to failed topic creations, continuous log errors, and possible service disruption if critical internal topics (like consumer offsets or transaction state) cannot be replicated.
+      impactScore: 6
+      tags:
+        - kafka
+        - known-problem
+      mitigation: |
+        - Match or lower the replication factor to the actual broker count, or scale up the Kafka cluster to accommodate the higher replication factor.
+      mitigationScore: 5
+      references:
+        - https://strimzi.io/docs/operators/latest/deploying#proc-changing-topic-replicas-str
+        - https://github.com/strimzi/proposals/blob/main/066-topic-replication-factor-change.md
+        - https://github.com/strimzi/strimzi-kafka-operator/issues/990
+      applications:
+        - name: Kafka
+          version: 3.x
+        - name: Kafka
+          version: 4.x
+    metadata:
+      kind: rules
+      id: LikPvDPTX5kEKiR3EoBEM7
+      gen: 1
+    rule:
+      set:
+        event:
+          source: kafka-topic-operator
+        match:
+          - value: "InvalidReplicationFactorException"
