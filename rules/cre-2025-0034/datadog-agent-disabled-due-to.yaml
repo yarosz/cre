@@ -44,7 +44,6 @@ rules:
   metadata:
     kind: rules
     id: 4F3JxvZDuzaScqJ7o1hKnY
-    hash: 393f65e547cb04b98018411be3d31a5a
     gen: 1
   rule:
     set:

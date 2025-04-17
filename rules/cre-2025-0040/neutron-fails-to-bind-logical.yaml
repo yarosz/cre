@@ -2,12 +2,12 @@ rules:
 - cre:
     id: CRE-2025-0040
     severity: 3
-    title: Neutron fails to bind logical switch due to race condition during load balancer creation
+    title: Neutron Open Virtual Network (OVN) fails to bind logical switch due to race condition during load balancer creation
     category: networking
     author: Prequel
     description: 'During load balancer creation or other operations involving logical router and logical switch associations,
 
-      Neutron may raise a `RowNotFound` exception when attempting to reference a logical switch that has just been deleted.
+      Neutron OVN may raise a `RowNotFound` exception when attempting to reference a logical switch that has just been deleted.
 
       This leads to a port binding failure and a rollback of the affected operation.
 
@@ -45,7 +45,6 @@ rules:
   metadata:
     kind: rules
     id: F4suPFsUYBbasFWjeUbR4p
-    hash: 798552888e21c539c9a01360a1bbcda9
     gen: 1
   rule:
     set:

@@ -49,7 +49,6 @@ rules:
   metadata:
     kind: rules
     id: Yarn9DFDP388rkR6b52SVn
-    hash: 882799b58c98887db8bd0e41e1d59242
     gen: 1
   rule:
     set:
@@ -57,4 +56,6 @@ rules:
         source: logs
       window: 5s
       match:
-      - regex: '.*Exporting failed.*Permanent error: 413 Payload Too Large.*'
+      - regex: 'internal/queue_sender.*Exporting failed.*"exporter".*Permanent error: 413 Payload Too Large.*'
+
+2025-04-15T20:17:58.568484769Z  error  internal/queue_sender.go:105  Exporting failed. Dropping data. Try enabling retry_on_failure config option to retry on retryable errors.  {"kind": "exporter", "data_type": "metrics", "name": "otlphttp", "error": "Permanent error: 413 Payload Too Large", "dropped_items": 3888}

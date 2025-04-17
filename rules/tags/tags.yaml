@@ -105,3 +105,108 @@ tags:
   - name: keda
     displayName: KEDA
     description: Problems with KEDA Operator
+  - name: openstack
+    displayName: Openstack
+    description: Problems specific to OpenStack infrastructure components and deployments.
+  - name: opentelemetry
+    displayName: Opentelemetry
+    description: Errors or gaps in tracing and metrics collection using OpenTelemetry libraries.
+  - name: operational error
+    displayName: Operational error
+    description: A runtime issue caused by system-level factors like resource limits or connectivity.
+  - name: otel-collector
+    displayName: Otel Collector
+    description: Failures in OpenTelemetry Collector pipelines or exporters.
+  - name: ovn
+    displayName: Ovn
+    description: Issues in Open Virtual Network components used with SDN setups.
+  - name: ovsdb
+    displayName: Ovsdb
+    description: Failures involving the OVSDB (Open vSwitch Database) protocol or schema.
+  - name: panic
+    displayName: Panic
+    description: Crashes due to unrecoverable errors, especially in Go or Rust applications.
+  - name: password
+    displayName: Password
+    description: Problems with password policies, validation, or storage.
+  - name: plugin
+    displayName: Plugin
+    description: Failures or misbehavior in third-party or custom plugin systems.
+  - name: port-binding
+    displayName: Port Binding
+    description: Conflicts or failures when applications attempt to bind to ports.
+  - name: postgres
+    displayName: Postgres
+    description: Issues related to PostgreSQL database configuration, queries, or performance.
+  - name: prometheus
+    displayName: Prometheus
+    description: Problems with scraping, rule evaluation, or querying Prometheus data.
+  - name: psycopg2
+    displayName: Psycopg2
+    description: Python client errors related to connecting or querying PostgreSQL using psycopg2.
+  - name: python
+    displayName: Python
+    description: General Python runtime errors or stack traces.
+  - name: rabbitmq
+    displayName: Rabbitmq
+    description: Errors in RabbitMQ clusters including queues, exchanges, or message delivery.
+  - name: redis
+    displayName: Redis
+    description: Issues involving Redis availability, eviction policies, or timeouts.
+  - name: redis-py
+    displayName: Redis Py
+    description: Errors with the `redis-py` client library in Python.
+  - name: retry
+    displayName: Retry
+    description: Logic or policy failures when retrying failed operations.
+  - name: rownotfound
+    displayName: Rownotfound
+    description: Database query errors indicating expected data was not found.
+  - name: s3
+    displayName: S3
+    description: Errors related to object access, buckets, or permissions in Amazon S3.
+  - name: security
+    displayName: Security
+    description: Misconfigurations or vulnerabilities in authentication, authorization, or encryption.
+  - name: service
+    displayName: Service
+    description: Failures at the service or API layer of an application.
+  - name: signature
+    displayName: Signature
+    description: Problems with signing or verifying cryptographic signatures.
+  - name: sqlalchemy
+    displayName: Sqlalchemy
+    description: Errors in SQLAlchemy ORM usage, session handling, or migrations.
+  - name: ssl
+    displayName: Ssl
+    description: SSL/TLS handshake errors or expired/invalid certificates.
+  - name: storage
+    displayName: Storage
+    description: Failures in block, object, or ephemeral storage backends.
+  - name: telemetry
+    displayName: Telemetry
+    description: Issues with emitting, collecting, or transforming observability data.
+  - name: threads
+    displayName: Threads
+    description: Race conditions, deadlocks, or errors in multithreaded environments.
+  - name: timeout
+    displayName: Timeout
+    description: Operations that exceeded their allotted execution window.
+  - name: transaction
+    displayName: Transaction
+    description: Database or service transaction failures due to commits or rollbacks.
+  - name: translation
+    displayName: Translation
+    description: Errors in i18n/l10n string resolution or missing language assets.
+  - name: uri
+    displayName: Uri
+    description: Malformed or invalid Uniform Resource Identifier usage.
+  - name: validation
+    displayName: Validation
+    description: Input or schema validation failures in form submissions or APIs.
+  - name: vif
+    displayName: Vif
+    description: Virtual interface (VIF) creation or binding errors in cloud networking.
+  - name: web
+    displayName: Web
+    description: Browser-facing issues in HTTP, HTML, or frontend integration layers.

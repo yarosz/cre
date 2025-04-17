@@ -52,7 +52,6 @@ rules:
   metadata:
     kind: rules
     id: WYw4wazkbHFmvSQvFhRnCG
-    hash: 5af83975f581a7f08e7fecaac9531dff
     gen: 1
   rule:
     set:

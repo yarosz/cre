@@ -5,45 +5,29 @@ rules:
     title: AWS EBS CSI Driver fails to detach volume when VolumeAttachment has empty nodeName
     category: storage
     author: Prequel
-    description: 'In clusters using the AWS EBS CSI driver, the controller may fail to detach a volume if the associated
-
-      VolumeAttachment resource has an empty `spec.nodeName`. This results in a log error and skipped detachment,
-
-      which may block PVC reuse or node cleanup.
-
-      '
-    cause: 'The controller attempts to locate the node based on `VolumeAttachment.spec.nodeName`. If this field is empty,
-
-      the controller''s logic skips processing, leading to a failure in detachment flow. This commonly happens when
-
-      a VolumeAttachment is deleted before node assignment completes.
-
-      '
+    description: |
+      In clusters using the AWS EBS CSI driver, the controller may fail to detach a volume if the associated VolumeAttachment resource has an empty `spec.nodeName`. This results in a log error and skipped detachment, which may block PVC reuse or node cleanup.
+    cause: |
+      The controller attempts to locate the node based on `VolumeAttachment.spec.nodeName`. If this field is empty, the controller's logic skips processing, leading to a failure in detachment flow. This commonly happens when a VolumeAttachment is deleted before node assignment completes.
     tags:
-    - ebs
-    - csi
-    - aws
-    - storage
-    - volume
-    - controller
-    - detachment
-    - known-issue
-    mitigation: '- Upgrade to aws-ebs-csi-driver v1.26.1 or later.
-
+      - ebs
+      - csi
+      - aws
+      - storage 
+      - known-issue
+    mitigation: | 
+      - Upgrade to aws-ebs-csi-driver v1.26.1 or later.
       - Avoid deleting PVCs or terminating pods immediately after volume provisioning.
-
       - Monitor for detachment failures via controller logs.
-
-      '
     references:
-    - https://github.com/kubernetes-sigs/aws-ebs-csi-driver/issues/1447#issuecomment-1664682557
-    - https://github.com/kubernetes-sigs/aws-ebs-csi-driver/pull/1576
-    - https://github.com/kubernetes-sigs/aws-ebs-csi-driver/releases/tag/v1.26.1
+      - https://github.com/kubernetes-sigs/aws-ebs-csi-driver/issues/1447#issuecomment-1664682557
+      - https://github.com/kubernetes-sigs/aws-ebs-csi-driver/pull/1576
+      - https://github.com/kubernetes-sigs/aws-ebs-csi-driver/releases/tag/v1.26.1
     applications:
-    - name: aws-ebs-csi-driver
-      version: < 1.26.1
-      imageUrl: public.ecr.aws/eks/aws-ebs-csi-driver:v1.25.0
-      containerName: ebs-csi-controller
+      - name: aws-ebs-csi-driver
+        version:  1.26.1
+        imageUrl: public.ecr.aws/eks/aws-ebs-csi-driver:v1.25.0
+        containerName: ebs-csi-controller
     impact: degraded volume lifecycle (e.g., stuck PVC)
     impactScore: 6
     mitigationScore: 1
@@ -51,11 +35,13 @@ rules:
   metadata:
     kind: rules
     id: 5zUfAdZ9myfaMJh9VnNBWm
-    hash: 12f4261ea8b4e31557d5be3f371ab26d
     gen: 1
   rule:
     set:
       event:
         source: aws-eks-nodeagent
       match:
-      - the server could not find the requested resource (get volumesnapshotcontents.snapshot.storage.k8s.io)
+        - value: the server could not find the requested resource (get volumesnapshotcontents.snapshot.storage.k8s.io)
+        - value: Unhandled Error
+        - value: k8s.io/client-go@(.+)/tools/cache/reflector.go
+        - value: Failed to watch *v1.VolumeSnapshotClass

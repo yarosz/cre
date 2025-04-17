@@ -5,52 +5,37 @@ rules:
     title: SQLAlchemy create_engine fails when password contains special characters like @
     category: configuration
     author: Prequel
-    description: 'SQLAlchemy applications using `create_engine()` may fail to connect to a database if the username or password
-
-      contains special characters (e.g., `@`, `:`, `/`, `#`). These characters must be URL-encoded when included
-
-      in the database connection string. Failure to encode them leads to parsing errors or incorrect credential usage.
-
-      '
-    cause: 'Special characters in database credentials (such as `@`) conflict with reserved URL characters used
-
-      to delimit user info, host, and port. If unencoded, SQLAlchemy misinterprets the connection string,
-
-      leading to failed authentication or malformed URIs.
-
-      '
+    description: | 
+      - SQLAlchemy applications using `create_engine()` may fail to connect to a database if the username or password contains special characters (e.g., `@`, `:`, `/`, `#`). These characters must be URL-encoded when included in the database connection string. Failure to encode them leads to parsing errors or incorrect credential usage.
+    cause: | 
+      - Special characters in database credentials (such as `@`) conflict with reserved URL characters used to delimit user info, host, and port. If unencoded, SQLAlchemy misinterprets the connection string, leading to failed authentication or malformed URIs.
     tags:
-    - sqlalchemy
-    - configuration
-    - password
-    - uri
-    - escaping
-    - connection
-    - known-issue
-    mitigation: '- URL-encode special characters in usernames and passwords when constructing the connection string.
-
+      - sqlalchemy
+      - configuration
+      - password
+      - uri
+      - escaping
+      - connection
+      - known-issue
+    mitigation: |
+      - URL-encode special characters in usernames and passwords when constructing the connection string.
       - For example, replace `@` with `%40`, `:` with `%3A`, `/` with `%2F`, etc.
-
       - Alternatively, use the dictionary-style `create_engine(URL.create(...))` approach to avoid manual string encoding.
-
       - See official docs: https://docs.sqlalchemy.org/en/20/core/engines.html#escaping-special-characters-such-as-signs-in-passwords
-
-      '
     references:
-    - https://github.com/sqlalchemy/sqlalchemy/issues?q=label%3A%22%40+%28or+other+chars%29+in+password%22+
-    - https://docs.sqlalchemy.org/en/20/core/engines.html#escaping-special-characters-such-as-signs-in-passwords
+      - https://github.com/sqlalchemy/sqlalchemy/issues?q=label%3A%22%40+%28or+other+chars%29+in+password%22+
+      - https://docs.sqlalchemy.org/en/20/core/engines.html#escaping-special-characters-such-as-signs-in-passwords
     applications:
-    - name: sqlalchemy
-      version: <2.0.30
-      containerName: app
-    impact: service startup failure
+      - name: sqlalchemy
+        version: < 2.0.30
+        containerName: app
+    impact: Service startup failure
     impactScore: 6
     mitigationScore: 2
     reports: 11
   metadata:
     kind: rules
     id: 5BYEbapiuQSU2AzoTERt1V
-    hash: 5ded6c6511273400966bfd3ec549c600
     gen: 1
   rule:
     set:

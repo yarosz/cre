@@ -5,18 +5,10 @@ rules:
     title: Loki fails to cache entries due to Memcached out-of-memory error
     category: infrastructure
     author: Prequel
-    description: 'Grafana Loki may emit errors when attempting to write to a Memcached backend that has run out of available memory.
-
-      This results in dropped index or query cache entries, which can degrade query performance but does not interrupt ingestion.
-
-      '
-    cause: 'Loki uses Memcached to cache query results and index lookups. When Memcached exhausts its allocated memory,
-
-      it may respond with `SERVER_ERROR out of memory storing object\r\n`, preventing new items from being cached.
-
-      Loki logs this as an exporter or client error when the storage backend rejects the cache operation.
-
-      '
+    description: |
+      Grafana Loki may emit errors when attempting to write to a Memcached backend that has run out of available memory. This results in dropped index or query cache entries, which can degrade query performance but does not interrupt ingestion.
+    cause: | 
+      Loki uses Memcached to cache query results and index lookups. When Memcached exhausts its allocated memory, it may respond with `SERVER_ERROR out of memory storing object\r\n`, preventing new items from being cached. Loki logs this as an exporter or client error when the storage backend rejects the cache operation.
     tags:
     - loki
     - memcached
@@ -24,15 +16,11 @@ rules:
     - memory
     - infrastructure
     - known-issue
-    mitigation: '- Increase the memory limit allocated to your Memcached deployment.
-
+    mitigation: |
+      - Increase the memory limit allocated to your Memcached deployment.
       - Use Memcached eviction policies (e.g., LRU) or tune object size limits.
-
       - Monitor Memcached memory metrics (e.g., `memcached_mem_bytes`) and set alerts for high usage.
-
       - Consider using a more robust backend like Redis for larger or persistent caches.
-
-      '
     references:
     - https://grafana.com/docs/loki/latest/configure/#cache_config
     - https://github.com/memcached/memcached/wiki/FAQ#im-getting-out-of-memory-errors
@@ -47,7 +35,6 @@ rules:
   metadata:
     kind: rules
     id: l8ums4nKERqZuKs1S31YSXZ
-    hash: 9eae3ef0e5e3bf94b3d0b6303244335d
     gen: 1
   rule:
     set:
@@ -55,4 +42,4 @@ rules:
         source: logs
       window: 5s
       match:
-      - regex: .*SERVER_ERROR out of memory storing object.*
+      - regex: .*backgroundCache writeBackLoop Cache.Store fail.*SERVER_ERROR out of memory storing object.*

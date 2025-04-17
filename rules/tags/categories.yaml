@@ -26,10 +26,10 @@ categories:
     description: Problems related to scaling, like autoscaling, scale-up, and scale-down events
   - name: noisy-neighbor-problems
     displayName: Noisy Neighbor Problems
-    description: Problems related to noisy neighbors, like N+1 database queries, and noisy neighbors in shared infrastructure
+    description: Problems related to noisy neighbors in shared infrastructure
   - name: python-library-problems
     displayName: Python Library Problems
-    description: Problems related to Python libraries, like requests, pandas, numpy, and others
+    description: Problems related to Python libraries
   - name: cloud-provider-problems
     displayName: Cloud Provider Problems
     description: Problems related to cloud providers, like AWS, GCP, Azure, and others
@@ -42,3 +42,30 @@ categories:
   - name: operator-problems
     displayName: Operator Problems
     description: Problems related to operators, like KEDA, Prometheus, and others
+  - name: configuration
+    displayName: Configuration
+    description: Issues related to incorrect or missing configuration settings.
+  - name: crash
+    displayName: Crash
+    description: Sudden termination or failure of applications or services.
+  - name: database
+    displayName: Database
+    description: Problems involving database connectivity, queries, or storage engines.
+  - name: infrastructure
+    displayName: Infrastructure
+    description: Failures or bottlenecks in core systems such as compute, storage, or networking.
+  - name: message-queue-problems
+  - name: networking
+    displayName: Networking
+    description: Connectivity, DNS, or routing issues affecting system communication.
+  - name: observability
+    displayName: Observability
+    description: Gaps or errors in metrics, logging, and tracing systems.
+  - name: runtime
+    displayName: Runtime
+    description: Problems within runtime environments such as Python, Java, or Node.js.
+  - name: storage
+    displayName: Storage
+    description: Disk, object storage, or volume-related issues that impact data availability.
+
+  
