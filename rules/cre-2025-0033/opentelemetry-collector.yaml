@@ -41,7 +41,6 @@ rules:
     set:
       event:
         source: logs
-      window: 5s
       match:
         - regex: '.*scrape/scrape.go:\d+\s+Scrape commit failed.*\"error\": \"data refused due to high memory usage\"'
 

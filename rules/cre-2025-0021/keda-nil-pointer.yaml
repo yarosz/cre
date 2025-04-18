@@ -37,7 +37,7 @@ rules:
       gen: 1
     rule:
       set:
-        window: 1s
+        window: 5s
         event:
           source: keda-operator
         match:

@@ -44,6 +44,5 @@ rules:
     set:
       event:
         source: logs
-      window: 5s
       match:
         - regex: '.*AttributeError: ''NoneType'' object has no attribute ''getpid''.*'

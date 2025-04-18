@@ -38,6 +38,7 @@ rules:
     set:
       event:
         source: opentelemetry
+      window: 5s
       match:
         - value: ERROR opentelemetry.context:Failed to detach context
         - regex: "ValueError: <Token var=<ContextVar name='current_context' .* was created in a different Context"

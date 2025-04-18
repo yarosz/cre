@@ -43,4 +43,4 @@ rules:
         source: logs
       window: 5s
       match:
-      - regex: '.*sqlalchemy.exc.ArgumentError: Could not parse rfc1738 URL from string.*'
+        - regex: '.*sqlalchemy.exc.ArgumentError: Could not parse rfc1738 URL from string.*'

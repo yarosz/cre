@@ -40,6 +40,5 @@ rules:
     set:
       event:
         source: logs
-      window: 5s
       match:
       - regex: .*backgroundCache writeBackLoop Cache.Store fail.*SERVER_ERROR out of memory storing object.*
