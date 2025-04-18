@@ -15,7 +15,10 @@ categories:
   - name: database-problem
     displayName: Database Problems
     description: Problems related to databases, like MySQL, PostgreSQL, MongoDB, and others
-  - name: disaster-recovery-problem
+  - name: proxy-problems
+    displayName: Proxy Problems
+    description: Problems related to proxies, like NGINX, HAProxy, and others
+  - name: disaster-recovery-problems
     displayName: Disaster Recovery Problems
     description: Problems related to disaster recovery, like backup and restore, and failover
   - name: memory-problem
