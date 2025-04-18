@@ -64,7 +64,6 @@ func RunBuild(inPath, outPath, vers string) error {
 	}
 
 	if err := _build(vers, inPath, outPath, packageName); err != nil {
-		log.Error().Err(err).Msg("Fail build")
 		return err
 	}
 
@@ -104,10 +103,12 @@ func processTags(inPath string) (tagsT, error) {
 	}
 
 	if err := validateTagsFields(tagsSection, tags); err != nil {
+		log.Error().Err(err).Str("file", filepath.Join(inPath, tagsDir, tagsYaml)).Msg("Fail validate tags")
 		return nil, err
 	}
 
 	if err := validateCategoriesFields(categoriesSection, tags); err != nil {
+		log.Error().Err(err).Str("file", filepath.Join(inPath, tagsDir, catsYaml)).Msg("Fail validate categories")
 		return nil, err
 	}
 
@@ -155,7 +156,7 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 		}
 
 		if err = validateRules(rules, ruleDupes, termDupes, tags); err != nil {
-			log.Error().Err(err).Msg("Fail validate rules")
+			log.Error().Err(err).Str("file", filepath.Join(path, y.Name())).Msg("Fail validate rules")
 			return nil, err
 		}
 
