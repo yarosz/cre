@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0029
     severity: 3
     title: Loki fails to retrieve AWS credentials when specifying S3 endpoint with IRSA
-    category: storage
+    category: storage-problem
     author: Prequel
     description: |
       - When deploying Grafana Loki with AWS S3 as the storage backend and specifying a custom S3 endpoint (e.g., for FIPS compliance or GovCloud regions), Loki may fail to retrieve AWS credentials via IAM Roles for Service Accounts (IRSA). This results in errors during startup or when attempting to upload index tables, preventing Loki from functioning correctly.

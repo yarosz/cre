@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0030
     severity: 2
     title: SQLAlchemy create_engine fails when password contains special characters like @
-    category: configuration
+    category: orm-problem
     author: Prequel
     description: | 
       - SQLAlchemy applications using `create_engine()` may fail to connect to a database if the username or password contains special characters (e.g., `@`, `:`, `/`, `#`). These characters must be URL-encoded when included in the database connection string. Failure to encode them leads to parsing errors or incorrect credential usage.

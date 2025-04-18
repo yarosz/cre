@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0037
     severity: 3
     title: OpenTelemetry Collector panics on nil attribute value in Prometheus Remote Write translator
-    category: crash
+    category: observability-problem
     author: Prequel
     description: |
       - The OpenTelemetry Collector can panic due to a nil pointer dereference in the Prometheus Remote Write exporter. The issue occurs when attribute values are assumed to be strings, but the internal representation is nil or incompatible, leading to a runtime `SIGSEGV` segmentation fault and crashing the collector.

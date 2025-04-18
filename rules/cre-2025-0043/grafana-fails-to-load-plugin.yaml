@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0043
     severity: 2
     title: Grafana fails to load plugin due to missing signature
-    category: configuration
+    category: observability-problem
     author: Prequel
     description: |
       - Grafana may reject custom or third-party plugins at runtime if they are not digitally signed. When plugin signature validation is enabled (default since Grafana 8+), unsigned plugins are blocked and logged as validation errors during startup or plugin loading.

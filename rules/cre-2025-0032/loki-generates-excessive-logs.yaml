@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0032
     severity: 3
     title: Loki generates excessive logs when memcached service port name is incorrect
-    category: configuration
+    category: observability-problem
     author: Prequel
     description: |
       - 'Loki instances using memcached for caching may emit excessive warning or error logs when the configured`memcached_client` service port name does not match the actual Kubernetes service port. This does not cause a crash or failure, but it results in noisy logs and ineffective caching behavior.

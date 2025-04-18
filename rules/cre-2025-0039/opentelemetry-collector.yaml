@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0039
     severity: 2
     title: OpenTelemetry Collector exporter experiences retryable errors due to backend unavailability
-    category: observability
+    category: observability-problem
     author: Prequel
     description: 'The OpenTelemetry Collector may intermittently fail to export telemetry data when the backend API is unavailable
 

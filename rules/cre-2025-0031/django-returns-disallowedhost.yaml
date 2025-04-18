@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0031
     severity: 2
     title: Django returns DisallowedHost error for untrusted HTTP_HOST headers
-    category: configuration
+    category: framework-problem
     author: Prequel
     description: |
       - Django applications may return a "DisallowedHost" error when receiving requests with an unrecognized or missing Host header. This typically occurs in production environments where reverse proxies, load balancers, or external clients send requests using an unexpected domain or IP address. Django blocks these requests unless the domain is explicitly listed in `ALLOWED_HOSTS`.
@@ -16,7 +16,6 @@ rules:
       - web
       - security
       - host-header
-      - known-issue
     mitigation: |
       - Add the incoming domain, IP address, or wildcard pattern to `ALLOWED_HOSTS` in your Django settings. 
       - For example: 

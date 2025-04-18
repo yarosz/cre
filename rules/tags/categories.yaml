@@ -3,69 +3,60 @@ metadata:
   id: xxtdmttg55Pg844dRw8Ti6
   gen: 1
 categories:
-  - name: api-problems
+  - name: api-problem
     displayName: API Problems
     description: Problems related to well-known external APIs
-  - name: message-queue-problems
+  - name: message-queue-problem
     displayName: Message Queue Problems
     description: Problems related to message queues, like Kafka, RabbitMQ, NATS, and others
-  - name: asynchronous-task-problems
+  - name: asynchronous-task-problem
     displayName: Asynchronous Task Problems
     description: Problems related to asynchronous tasks, like Celery, Sidekiq, and others
-  - name: database-problems
+  - name: database-problem
     displayName: Database Problems
     description: Problems related to databases, like MySQL, PostgreSQL, MongoDB, and others
-  - name: disaster-recovery-problems
+  - name: disaster-recovery-problem
     displayName: Disaster Recovery Problems
     description: Problems related to disaster recovery, like backup and restore, and failover
-  - name: memory-problems
+  - name: memory-problem
     displayName: Memory Problems
     description: Problems related to memory, like out-of-memory crashes, memory leaks, and memory pressure
-  - name: scaling-problems
-    displayName: Scaling Problems
+  - name: scaling-problem
+    displayName: Scaling Problem
     description: Problems related to scaling, like autoscaling, scale-up, and scale-down events
-  - name: noisy-neighbor-problems
+  - name: noisy-neighbor-problem
     displayName: Noisy Neighbor Problems
     description: Problems related to noisy neighbors in shared infrastructure
-  - name: python-library-problems
-    displayName: Python Library Problems
-    description: Problems related to Python libraries
-  - name: cloud-provider-problems
+  - name: library-problem
+    displayName: Library Problems
+    description: Problems related to libraries
+  - name: cloud-provider-problem
     displayName: Cloud Provider Problems
     description: Problems related to cloud providers, like AWS, GCP, Azure, and others
-  - name: unhealthy-events
+  - name: unhealthy-event
     displayName: Unhealthy Kubernetes Events
     description: Problems related to unhealthy events, like probe failures and others
-  - name: observability-problems
+  - name: observability-problem
     displayName: Observability Problems
     description: Problems related to observability, like monitoring, logging, and tracing
-  - name: operator-problems
+  - name: operator-problem
     displayName: Operator Problems
-    description: Problems related to operators, like KEDA, Prometheus, and others
-  - name: configuration
-    displayName: Configuration
-    description: Issues related to incorrect or missing configuration settings.
-  - name: crash
-    displayName: Crash
-    description: Sudden termination or failure of applications or services.
-  - name: database
-    displayName: Database
-    description: Problems involving database connectivity, queries, or storage engines.
-  - name: infrastructure
-    displayName: Infrastructure
-    description: Failures or bottlenecks in core systems such as compute, storage, or networking.
-  - name: message-queue-problems
-  - name: networking
-    displayName: Networking
+    description: Problems related to operators
+  - name: networking-problem
+    displayName: Networking Problems
     description: Connectivity, DNS, or routing issues affecting system communication.
-  - name: observability
-    displayName: Observability
-    description: Gaps or errors in metrics, logging, and tracing systems.
-  - name: runtime
+  - name: runtime-problem
     displayName: Runtime
     description: Problems within runtime environments such as Python, Java, or Node.js.
-  - name: storage
+  - name: storage-problem
     displayName: Storage
     description: Disk, object storage, or volume-related issues that impact data availability.
-
-  
+  - name: orm-problem
+    displayName: Orm
+    description: Object Relational Mapper issue that impacts data availability.
+  - name: cache-problem
+    displayName: Cache Problems
+    description: "Cache related problems"
+  - name: framework-problem
+    displayName: Framework Problems
+    description: "Problems in frameworks such as Django"

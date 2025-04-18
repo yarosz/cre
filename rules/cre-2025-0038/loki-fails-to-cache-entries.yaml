@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0038
     severity: 3
     title: Loki fails to cache entries due to Memcached out-of-memory error
-    category: infrastructure
+    category: observability-problem
     author: Prequel
     description: |
       Grafana Loki may emit errors when attempting to write to a Memcached backend that has run out of available memory. This results in dropped index or query cache entries, which can degrade query performance but does not interrupt ingestion.

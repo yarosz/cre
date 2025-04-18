@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0028
     severity: 3
     title: OpenTelemetry Python fails to detach context token across async boundaries
-    category: observability
+    category: observability-problem
     author: Prequel
     description: |
       In OpenTelemetry Python, detaching a context token that was created in a different context can raise a `ValueError`. This occurs when asynchronous operations, such as generators or coroutines, are finalized in a different context than they were created, leading to context management errors and potential trace data loss.

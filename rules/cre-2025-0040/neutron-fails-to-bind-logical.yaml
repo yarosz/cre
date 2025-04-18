@@ -3,37 +3,29 @@ rules:
     id: CRE-2025-0040
     severity: 3
     title: Neutron Open Virtual Network (OVN) fails to bind logical switch due to race condition during load balancer creation
-    category: networking
+    category: networking-problem
     author: Prequel
-    description: 'During load balancer creation or other operations involving logical router and logical switch associations,
-
-      Neutron OVN may raise a `RowNotFound` exception when attempting to reference a logical switch that has just been deleted.
-
-      This leads to a port binding failure and a rollback of the affected operation.
-
-      '
-    cause: "When the logical topology changes rapidly\u2014such as a subnet being deleted concurrently with a load balancer setup\u2014\nNeutron's ML2/OVN driver may try to bind to a logical switch that no longer exists in OVN NBDB.\nThis results in `ovsdbapp.backend.ovs_idl.idlutils.RowNotFound` being raised, followed by a\n`MechanismDriverError`, and the port creation is rolled back.\n"
+    description: |
+      - During load balancer creation or other operations involving logical router and logical switch associations, Neutron OVN may raise a `RowNotFound` exception when attempting to reference a logical switch that has just been deleted. This leads to a port binding failure and a rollback of the affected operation.
+    cause: |
+      - When the logical topology changes rapidly, such as a subnet being deleted concurrently with a load balancer setup, Neutron's ML2/OVN driver may try to bind to a logical switch that no longer exists in OVN NBDB. This results in `ovsdbapp.backend.ovs_idl.idlutils.RowNotFound` being raised, followed by a `MechanismDriverError`, and the port creation is rolled back.
     tags:
-    - neutron
-    - ovn
-    - openstack
-    - load-balancer
-    - logical-switch
-    - ovsdb
-    - rownotfound
-    - known-issue
-    mitigation: '- Apply upstream Neutron fix (see Launchpad bug 1963921).
-
+      - neutron
+      - ovn
+      - openstack
+      - load-balancer
+      - logical-switch
+      - ovsdb
+      - rownotfound
+      - known-issue
+    mitigation: |
+      - Apply upstream Neutron fix (see Launchpad bug 1963921).
       - Patch Neutron to include retry logic for logical switch to load balancer associations.
-
       - Reduce concurrent subnet operations during load balancer provisioning.
-
       - Use Neutron commits with split transactions to allow partial recovery in failure cases.
-
-      '
     references:
-    - https://bugs.launchpad.net/neutron/+bug/1963921
-    - https://opendev.org/openstack/neutron/commit/45fd94db9a343c4dbdbcc6e989d77d674ed040a9
+      - https://bugs.launchpad.net/neutron/+bug/1963921
+      - https://opendev.org/openstack/neutron/commit/45fd94db9a343c4dbdbcc6e989d77d674ed040a9
     applications:
     - name: neutron
       version: <= 22.0.0
@@ -52,5 +44,5 @@ rules:
         source: logs
       window: 5s
       match:
-      - regex: '.*RowNotFound: Cannot find Logical_Switch with name=.*'
-      - regex: .*mechanism_manager\.create_port_postcommit failed.*MechanismDriverError.*
+        - regex: '.*RowNotFound: Cannot find Logical_Switch with name=.*'
+        - regex: .*mechanism_manager\.create_port_postcommit failed.*MechanismDriverError.*

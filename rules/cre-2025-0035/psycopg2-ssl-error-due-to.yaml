@@ -3,49 +3,35 @@ rules:
     id: CRE-2025-0035
     severity: 4
     title: psycopg2 SSL error due to thread or forked process state
-    category: runtime
+    category: database-problem
     author: Prequel
-    description: 'Applications using psycopg2 with OpenTelemetry instrumentation or threading may fail with SSL-related errors such as
-
-      "decryption failed or bad record mac". This often occurs when a database connection is created before a fork or from
-
-      an unsafe thread context, causing the SSL state to become invalid.
-
-      '
-    cause: 'This error results from unsafe interaction between OpenSSL, process forks, and threading. psycopg2 uses libpq, which
-
-      in turn uses OpenSSL. If a fork occurs after a connection is established, or if shared SSL state is accessed across
-
-      threads unsafely, PostgreSQL may reject the connection with SSL-level errors.
-
-      '
+    description: |
+      - Applications using psycopg2 with OpenTelemetry instrumentation or threading may fail with SSL-related errors such as "decryption failed or bad record mac". This often occurs when a database connection is created before a fork or from an unsafe thread context, causing the SSL state to become invalid.
+    cause: |
+      This error results from unsafe interaction between OpenSSL, process forks, and threading. psycopg2 uses libpq, which in turn uses OpenSSL. If a fork occurs after a connection is established, or if shared SSL state is accessed across threads unsafely, PostgreSQL may reject the connection with SSL-level errors.
     tags:
-    - ssl
-    - psycopg2
-    - fork
-    - threads
-    - django
-    - instrumentation
-    - opentelemetry
-    - known-issue
-    mitigation: '- Ensure all PostgreSQL connections are created after any forks (e.g., inside a worker thread or process).
-
+      - ssl
+      - psycopg2
+      - fork
+      - threads
+      - django
+      - instrumentation
+      - opentelemetry
+      - known-issue
+    mitigation: |
+      - Ensure all PostgreSQL connections are created after any forks (e.g., inside a worker thread or process).
       - Avoid sharing DB connections across threads or subprocesses.
-
       - If using uWSGI or gunicorn, configure with `--lazy-apps` or use gevent/thread-aware worker models.
-
       - Optionally disable OpenTelemetry DB instrumentation if it interferes with connection tracing.
-
-      '
     references:
-    - https://github.com/psycopg/psycopg2/issues/684
-    - https://github.com/open-telemetry/opentelemetry-python/issues/1393
-    - https://www.postgresql.org/message-id/flat/CAMsr+YEY0JzwW9aEiXtTG1EXw9uOsT0X5aNq27gk3BNyULmGPw@mail.gmail.com
+      - https://github.com/psycopg/psycopg2/issues/684
+      - https://github.com/open-telemetry/opentelemetry-python/issues/1393
+      - https://www.postgresql.org/message-id/flat/CAMsr+YEY0JzwW9aEiXtTG1EXw9uOsT0X5aNq27gk3BNyULmGPw@mail.gmail.com
     applications:
-    - name: django
-      version: '>=3.2'
-      containerName: web
-    impact: failed database queries and healthchecks due to broken SSL state
+      - name: django
+        version: '>=3.2'
+        containerName: web
+    impact: Failed database queries and healthchecks due to broken SSL state
     impactScore: 7
     mitigationScore: 6
     reports: 12
@@ -59,4 +45,4 @@ rules:
         source: logs
       window: 5s
       match:
-      - regex: '.*django\.db\.utils\.OperationalError: SSL error: decryption failed or bad record mac.*'
+        - regex: '.*django\.db\.utils\.OperationalError: SSL error: decryption failed or bad record mac.*'

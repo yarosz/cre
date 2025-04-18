@@ -3,7 +3,7 @@ rules:
     id: CRE-2025-0042
     severity: 4
     title: PostgreSQL transaction fails with deadlock detected error in psycopg2 and Django
-    category: database
+    category: database-problem
     author: Prequel
     description: | 
       - Applications using Django with PostgreSQL and psycopg2 may encounter `deadlock detected` errors under concurrent write-heavy workloads.
