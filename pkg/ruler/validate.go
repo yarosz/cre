@@ -46,6 +46,7 @@ func validateCategoriesFields(t RuleIncludeT, tags tagsT) error {
 }
 
 func validateTags(tags []TagT, kind string, dupes tagsT) error {
+
 	for _, t := range tags {
 		if t.Name == "" {
 			log.Error().
