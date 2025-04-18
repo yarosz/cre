@@ -209,128 +209,128 @@ tags:
     description: Container Storage Interface (CSI)
   - name: api-key
     displayName: Api Key
-    description: ""
+    description: Problems related to API keys, such as missing, invalid, or expired credentials
   - name: async
     displayName: Async
-    description: ""
+    description: Problems related to asynchronous execution, such as hung tasks, race conditions, or callback errors
   - name: attribute
     displayName: Attribute
-    description: ""
+    description: Problems related to missing or unexpected object attributes, causing attribute access failures
   - name: attributeerror
     displayName: Attributeerror
-    description: ""
+    description: Problems where code fails due to attribute lookup errors, such as missing attributes on objects
   - name: authentication
     displayName: Authentication
-    description: ""
+    description: Problems related to user or service authentication, such as invalid tokens or failed logins
   - name: backpressure
     displayName: Backpressure
-    description: ""
+    description: Problems where producers overwhelm consumers, causing resource exhaustion or unhandled pressure
   - name: batch
     displayName: Batch
-    description: ""
+    description: Problems related to batch processing, such as job failures, incorrect batch sizing, or order issues
   - name: cache
     displayName: Cache
-    description: ""
+    description: Problems related to caching mechanisms, including stale data, cache misses, or eviction faults
   - name: configuration
     displayName: Configuration
-    description: ""
+    description: Problems caused by incorrect or missing configuration settings
   - name: connection
     displayName: Connection
-    description: ""
+    description: Problems related to network connections, such as timeouts, refusals, or resets
   - name: context
     displayName: Context
-    description: ""
+    description: Problems related to context propagation, such as lost, overwritten, or mismatched context values
   - name: contextvars
     displayName: Contextvars
-    description: ""
+    description: Problems specifically with Python context variables, such as improper isolation or missing context
   - name: data-loss
     displayName: Data Loss
-    description: ""
+    description: Problems where data is lost or dropped due to system failures or processing errors
   - name: datadog
     displayName: Datadog
-    description: ""
+    description: Problems related to Datadog integration, such as missing metrics, reporting failures, or misconfigurations
   - name: deadlock
     displayName: Deadlock
-    description: ""
+    description: Problems where threads or processes enter deadlock, preventing further progress
   - name: disallowedhost
     displayName: Disallowedhost
-    description: ""
+    description: Problems where incoming requests are blocked due to disallowed Host header settings
   - name: django
     displayName: Django
-    description: ""
+    description: Problems related to the Django framework, such as view errors, middleware faults, or misconfigurations
   - name: drop
     displayName: Drop
-    description: ""
+    description: Problems where messages or data are unexpectedly dropped or discarded
   - name: environment
     displayName: Environment
-    description: ""
+    description: Problems related to environment variables or runtime environment settings
   - name: escaping
     displayName: Escaping
-    description: ""
+    description: Problems related to improper escaping of strings or data, leading to injection or parsing issues
   - name: exporter
     displayName: Exporter
-    description: ""
+    description: Problems related to metric exporters, such as missing, malformed, or unreported metric data
   - name: fork
     displayName: Fork
-    description: ""
+    description: Problems related to process forking, such as unsafe forks or resource duplication
   - name: grafana
     displayName: Grafana
-    description: ""
+    description: Problems related to Grafana services, that may impact performance, or telemetry collection and storage
   - name: helm
     displayName: Helm
-    description: ""
+    description: Problems related to Helm deployments, such as chart rendering failures or template errors
   - name: host-header
     displayName: Host Header
-    description: ""
+    description: Problems due to incorrect or malicious Host header values
   - name: infrastructure
     displayName: Infrastructure
-    description: ""
+    description: Problems at the infrastructure level, such as resource outages or provisioning failures
   - name: instrumentation
     displayName: Instrumentation
-    description: ""
+    description: Problems related to instrumentation code, such as missing spans, broken traces, or metric gaps
   - name: irsa
     displayName: Irsa
-    description: ""
+    description: Problems related to IAM Roles for Service Accounts (IRSA), such as permission denials or misbindings
   - name: known-issue
     displayName: Known Issue
-    description: ""
+    description: Problems already identified and documented as known issues
   - name: kubernetes
     displayName: Kubernetes
-    description: ""
+    description: Problems related to Kubernetes, such as pod failures, API errors, or scheduling issues
   - name: load-balancer
     displayName: Load Balancer
-    description: ""
+    description: Problems related to load balancers, such as misrouting, unhealthy backends, or configuration faults
   - name: logical-switch
     displayName: Logical Switch
-    description: ""
+    description: Problems related to logical switch configurations in virtual networking
   - name: memcached
     displayName: Memcached
-    description: ""
+    description: Problems related to Memcached, such as cache evictions, connection errors, or stale entries
   - name: memory
     displayName: Memory
-    description: ""
+    description: Problems related to memory usage, such as leaks, pressure, or out-of-memory crashes
   - name: metrics
     displayName: Metrics
-    description: ""
+    description: Problems related to metrics collection or reporting, such as missing, delayed, or incorrect data
   - name: multiprocessing
     displayName: Multiprocessing
-    description: ""
+    description: Problems related to multiprocessing, such as process spawning failures or inter-process communication issues
   - name: network
     displayName: Network
-    description: ""
+    description: Problems related to network communication, such as packet loss, latency spikes, or unreachable hosts
   - name: networking
     displayName: Networking
-    description: ""
+    description: Problems within networking components, such as interface misconfigurations or routing errors
   - name: neutron
     displayName: Neutron
-    description: ""
+    description: Problems related to OpenStack Neutron, such as network provisioning or connectivity failures
   - name: nil-pointer
     displayName: Nil Pointer
-    description: ""
+    description: Problems where code dereferences nil pointers, causing runtime crashes
   - name: observability
     displayName: Observability
-    description: ""
+    description: Problems in observability tooling, such as unintended performance impact or missing telemetry 
   - name: payload
     displayName: Payload
-    description: ""
-  
+    description: Problems related to message payloads, such as malformed data or size limit violations
+    
