@@ -1,0 +1,34 @@
+rules:
+  - cre:
+      id: CRE-2024-0043
+      severity: 2
+      title: NGINX Upstream DNS Failure
+      category: proxy-problems
+      author: Prequel
+      description: |
+        When a NGINX upstream becomes unreachable or its DNS entry disappears, NGINX requests begin to fail.
+      cause: |
+         The upstream host or container is removed, invalidating its DNS resolution and causing requests to break.
+      impact: |
+         Clients experience partial or total service interruptions until the upstream is restored or reconfigured.
+      impactScore: 6
+      tags:
+        - kafka
+        - known-problem
+      mitigation: |
+        - Provide a stable or redundant upstream configuration so NGINX can gracefully handle DNS resolution failures.
+      mitigationScore: 5
+      references:
+        - https://stackoverflow.com/questions/32845674/nginx-how-to-not-exit-if-host-not-found-in-upstream
+      applications:
+        - name: NGINX
+    metadata:
+      kind: rules
+      id: oN49VMfoAw8rUre2bEhheP
+      gen: 1
+    rule:
+      set:
+        event:
+          source: nginx
+        match:
+          - regex: "\\[error\\].*?\\bcould not be resolved\\b.*?\\bServer failure\\b"
