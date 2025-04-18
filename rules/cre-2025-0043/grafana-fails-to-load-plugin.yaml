@@ -1,0 +1,47 @@
+rules:
+- cre:
+    id: CRE-2025-0043
+    severity: 2
+    title: Grafana fails to load plugin due to missing signature
+    category: observability-problem
+    author: Prequel
+    description: |
+      - Grafana may reject custom or third-party plugins at runtime if they are not digitally signed. When plugin signature validation is enabled (default since Grafana 8+), unsigned plugins are blocked and logged as validation errors during startup or plugin loading.
+    cause: | 
+      - Grafana enforces plugin signing to prevent tampering and supply chain attacks.
+      - If a plugin such as `kentik-description-panel` lacks a valid signature or is locally built without signing, the validation step fails, and the plugin is not loaded.
+    tags:
+      - grafana
+      - plugin
+      - validation
+      - signature
+      - configuration
+      - security
+      - known-issue
+    mitigation: |
+      - Set `plugins.allow_unsigned_plugins = ["kentik-description-panel"]` in `grafana.ini` to explicitly allow the plugin.
+      - Request a signed version from the plugin vendor or author.
+      - For dev environments, set `plugins.allow_loading_unsigned_plugins = true` (not recommended for production).
+      - Upgrade Grafana plugins via `grafana-cli` to receive official signed builds if available.
+    references:
+      - https://grafana.com/docs/grafana/latest/developers/plugins/sign-a-plugin/
+      - https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#plugins
+    applications:
+      - name: grafana
+        version: '>= 8.0.0'
+        containerName: grafana
+    impact: plugin is blocked and unavailable in dashboards or panels
+    impactScore: 4
+    mitigationScore: 2
+    reports: 6
+  metadata:
+    kind: rules
+    id: LRNe3pcXMv6FSBbqkTYY2B
+    gen: 1
+  rule:
+    set:
+      event:
+        source: logs
+      window: 5s
+      match:
+        - regex: .*Plugin validation failed.*has no signature.*

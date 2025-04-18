@@ -1,0 +1,49 @@
+rules:
+- cre:
+    id: CRE-2025-0041
+    severity: 3
+    title: redis-py client fails with AttributeError when reused across async or process contexts
+    category: cache-problem
+    author: Prequel
+    description: |
+      - In redis-py v5.x, sharing a single Redis client across async tasks or subprocesses can result in:
+      - `AttributeError: ''NoneType'' object has no attribute ''getpid''`.
+      - This typically occurs when the client or connection pool is reused across forks or when event loop context is lost, especially in async frameworks or multiprocessing setups.
+    cause: |
+      - 'redis-py tracks the active event loop and process ID in the connection pool. If a Redis client is reused in a different process or async task after the original event loop is gone, internal context like `self._loop` becomes `None`, causing `self._loop.getpid()` to raise an AttributeError.
+    tags:
+      - redis
+      - redis-py
+      - python
+      - async
+      - multiprocessing
+      - context
+      - attributeerror
+      - known-issue
+    mitigation: |
+      - Avoid sharing Redis clients across processes or async task groups.
+      - Recreate clients inside subprocesses or use context-aware pools.
+      - Use `redis.asyncio.ConnectionPool` directly if managing multiple workers manually.
+      - Upgrade to the patched version of redis-py (see PR #3015).
+    references:
+      - https://github.com/redis/redis-py/issues/3014#issuecomment-1895438237
+      - https://github.com/redis/redis-py/pull/3015
+    applications:
+      - name: redis-py
+        version: ' >= 5.0.0, < 5.1.0'
+        containerName: app
+    impact: process/thread-local Redis context loss leading to runtime exceptions
+    impactScore: 5
+    mitigationScore: 4
+    reports: 9
+  metadata:
+    kind: rules
+    id: Ngr84G5NF1fAu6BtB3g4D
+    gen: 1
+  rule:
+    set:
+      event:
+        source: logs
+      window: 5s
+      match:
+        - regex: '.*AttributeError: ''NoneType'' object has no attribute ''getpid''.*'

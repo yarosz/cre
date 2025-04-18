@@ -3,7 +3,7 @@ rules:
       id: CRE-2024-0007
       severity: 0
       title: RabbitMQ Mnesia overloaded recovering persistent queues
-      category: message-queue-problems
+      category: message-queue-problem
       author: Prequel
       description: |
         - Look at the logs for the RabbitMQ container with the detection.

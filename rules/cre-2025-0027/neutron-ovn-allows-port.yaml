@@ -1,0 +1,48 @@
+rules:
+- cre:
+    id: CRE-2025-0027
+    severity: 3
+    title: Neutron Open Virtual Network (OVN) and Virtual Interface (VIF) allows port binding to dead agents, causing VIF plug timeouts
+    category: networking-problem
+    author: Prequel
+    description: |
+      In OpenStack deployments using Neutron with the OVN ML2 driver, ports could be bound to agents that were not alive. This behavior led to virtual machines experiencing network interface plug timeouts during provisioning, as the port binding would not complete successfully.
+    cause: | 
+      The OVN mechanism driver did not verify the liveness of agents before binding ports. Consequently, ports could be bound to non-responsive agents, resulting in failures during the virtual interface (VIF) plug process.
+    tags:
+      - neutron
+      - ovn
+      - port-binding
+      - vif
+      - timeout
+      - networking
+      - openstack
+      - known-issue
+    mitigation: |
+      - Upgrade Neutron to a version that includes the fix for this issue:
+        - Master branch: commit `8a55f091925fd5e6742fb92783c524450843f5a0`\n  
+        - Stable Yoga branch: commit `267631e8fb35af4d9d96c70c6e6ddba25256f195`
+      - Ensure that Neutron agents are monitored and maintained in a healthy state to prevent binding to inactive agents.
+    references:
+      - https://bugs.launchpad.net/neutron/+bug/1958501
+      - https://review.opendev.org/c/openstack/neutron/+/825428
+      - https://opendev.org/openstack/neutron/commit/8a55f091925fd5e6742fb92783c524450843f5a0
+      - https://opendev.org/openstack/neutron/commit/267631e8fb35af4d9d96c70c6e6ddba25256f195
+    applications:
+      - name: neutron
+        version: <= 20.2.0
+        containerName: neutron-server
+    impact: network provisioning failure for VMs
+    impactScore: 7
+    mitigationScore: 2
+    reports: 2
+  metadata:
+    kind: rules
+    id: 6esZLHD9QRK4fHqTbtod4j
+    gen: 1
+  rule:
+    set:
+      event:
+        source: prometheus
+      match:
+        - regex: '.* Failed to bind port .* on host .* for vnic_type .* using segments \[.*\].* Attempt .* to bind port .* .* Refusing to bind port .* to dead agent:  <.*>'

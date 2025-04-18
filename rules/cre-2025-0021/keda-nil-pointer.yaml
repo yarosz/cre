@@ -3,7 +3,7 @@ rules:
       id: CRE-2024-0021
       severity: 1
       title: KEDA operator reconciler ScaledObject panic
-      category: operator-problems
+      category: operator-problem
       author: Prequel
       description: |
         KEDA allows for fine-grained autoscaling (including to/from zero) for event driven Kubernetes workloads. KEDA serves as a Kubernetes Metrics Server and allows users to define autoscaling rules using a dedicated Kubernetes custom resource definition.

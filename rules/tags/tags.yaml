@@ -51,9 +51,6 @@ tags:
   - name: known-anti-pattern
     displayName: Known Anti-Pattern
     description: This is a known anti-pattern that should be avoided
-  - name: database
-    displayName: Database
-    description: Problems with databases like MySQL, PostgreSQL, MongoDB, and others
   - name: postgres
     displayName: PostgreSQL
     description: Problems with PostgreSQL
@@ -105,3 +102,235 @@ tags:
   - name: keda
     displayName: KEDA
     description: Problems with KEDA Operator
+  - name: openstack
+    displayName: Openstack
+    description: Problems specific to OpenStack infrastructure components and deployments.
+  - name: opentelemetry
+    displayName: Opentelemetry
+    description: Errors or gaps in tracing and metrics collection using OpenTelemetry libraries.
+  - name: operational error
+    displayName: Operational error
+    description: A runtime issue caused by system-level factors like resource limits or connectivity.
+  - name: otel-collector
+    displayName: Otel Collector
+    description: Failures in OpenTelemetry Collector pipelines or exporters.
+  - name: ovn
+    displayName: Ovn
+    description: Issues in Open Virtual Network components used with SDN setups.
+  - name: ovsdb
+    displayName: Ovsdb
+    description: Failures involving the OVSDB (Open vSwitch Database) protocol or schema.
+  - name: panic
+    displayName: Panic
+    description: Crashes due to unrecoverable errors, especially in Go or Rust applications.
+  - name: password
+    displayName: Password
+    description: Problems with password policies, validation, or storage.
+  - name: plugin
+    displayName: Plugin
+    description: Failures or misbehavior in third-party or custom plugin systems.
+  - name: port-binding
+    displayName: Port Binding
+    description: Conflicts or failures when applications attempt to bind to ports.
+  - name: prometheus
+    displayName: Prometheus
+    description: Problems with scraping, rule evaluation, or querying Prometheus data.
+  - name: psycopg2
+    displayName: Psycopg2
+    description: Python client errors related to connecting or querying PostgreSQL using psycopg2.
+  - name: python
+    displayName: Python
+    description: General Python runtime errors or stack traces.
+  - name: redis
+    displayName: Redis
+    description: Issues involving Redis availability, eviction policies, or timeouts.
+  - name: redis-py
+    displayName: Redis Py
+    description: Errors with the `redis-py` client library in Python.
+  - name: retry
+    displayName: Retry
+    description: Logic or policy failures when retrying failed operations.
+  - name: rownotfound
+    displayName: Rownotfound
+    description: Database query errors indicating expected data was not found.
+  - name: s3
+    displayName: S3
+    description: Errors related to object access, buckets, or permissions in Amazon S3.
+  - name: security
+    displayName: Security
+    description: Misconfigurations or vulnerabilities in authentication, authorization, or encryption.
+  - name: service
+    displayName: Service
+    description: Failures at the service or API layer of an application.
+  - name: signature
+    displayName: Signature
+    description: Problems with signing or verifying cryptographic signatures.
+  - name: sqlalchemy
+    displayName: Sqlalchemy
+    description: Errors in SQLAlchemy ORM usage, session handling, or migrations.
+  - name: ssl
+    displayName: Ssl
+    description: SSL/TLS handshake errors or expired/invalid certificates.
+  - name: storage
+    displayName: Storage
+    description: Failures in block, object, or ephemeral storage backends.
+  - name: telemetry
+    displayName: Telemetry
+    description: Issues with emitting, collecting, or transforming observability data.
+  - name: threads
+    displayName: Threads
+    description: Race conditions, deadlocks, or errors in multithreaded environments.
+  - name: timeout
+    displayName: Timeout
+    description: Operations that exceeded their allotted execution window.
+  - name: transaction
+    displayName: Transaction
+    description: Database or service transaction failures due to commits or rollbacks.
+  - name: translation
+    displayName: Translation
+    description: Errors in i18n/l10n string resolution or missing language assets.
+  - name: uri
+    displayName: Uri
+    description: Malformed or invalid Uniform Resource Identifier usage.
+  - name: validation
+    displayName: Validation
+    description: Input or schema validation failures in form submissions or APIs.
+  - name: vif
+    displayName: Vif
+    description: Virtual interface (VIF) creation or binding errors in cloud networking.
+  - name: web
+    displayName: Web
+    description: Browser-facing issues in HTTP, HTML, or frontend integration layers.
+  - name: ebs
+    displayName: ebs
+    description: Problems with Amazon EBS (Elastic Block Store).
+  - name: csi
+    displayName: csi
+    description: Container Storage Interface (CSI)
+  - name: api-key
+    displayName: Api Key
+    description: ""
+  - name: async
+    displayName: Async
+    description: ""
+  - name: attribute
+    displayName: Attribute
+    description: ""
+  - name: attributeerror
+    displayName: Attributeerror
+    description: ""
+  - name: authentication
+    displayName: Authentication
+    description: ""
+  - name: backpressure
+    displayName: Backpressure
+    description: ""
+  - name: batch
+    displayName: Batch
+    description: ""
+  - name: cache
+    displayName: Cache
+    description: ""
+  - name: configuration
+    displayName: Configuration
+    description: ""
+  - name: connection
+    displayName: Connection
+    description: ""
+  - name: context
+    displayName: Context
+    description: ""
+  - name: contextvars
+    displayName: Contextvars
+    description: ""
+  - name: data-loss
+    displayName: Data Loss
+    description: ""
+  - name: datadog
+    displayName: Datadog
+    description: ""
+  - name: deadlock
+    displayName: Deadlock
+    description: ""
+  - name: disallowedhost
+    displayName: Disallowedhost
+    description: ""
+  - name: django
+    displayName: Django
+    description: ""
+  - name: drop
+    displayName: Drop
+    description: ""
+  - name: environment
+    displayName: Environment
+    description: ""
+  - name: escaping
+    displayName: Escaping
+    description: ""
+  - name: exporter
+    displayName: Exporter
+    description: ""
+  - name: fork
+    displayName: Fork
+    description: ""
+  - name: grafana
+    displayName: Grafana
+    description: ""
+  - name: helm
+    displayName: Helm
+    description: ""
+  - name: host-header
+    displayName: Host Header
+    description: ""
+  - name: infrastructure
+    displayName: Infrastructure
+    description: ""
+  - name: instrumentation
+    displayName: Instrumentation
+    description: ""
+  - name: irsa
+    displayName: Irsa
+    description: ""
+  - name: known-issue
+    displayName: Known Issue
+    description: ""
+  - name: kubernetes
+    displayName: Kubernetes
+    description: ""
+  - name: load-balancer
+    displayName: Load Balancer
+    description: ""
+  - name: logical-switch
+    displayName: Logical Switch
+    description: ""
+  - name: memcached
+    displayName: Memcached
+    description: ""
+  - name: memory
+    displayName: Memory
+    description: ""
+  - name: metrics
+    displayName: Metrics
+    description: ""
+  - name: multiprocessing
+    displayName: Multiprocessing
+    description: ""
+  - name: network
+    displayName: Network
+    description: ""
+  - name: networking
+    displayName: Networking
+    description: ""
+  - name: neutron
+    displayName: Neutron
+    description: ""
+  - name: nil-pointer
+    displayName: Nil Pointer
+    description: ""
+  - name: observability
+    displayName: Observability
+    description: ""
+  - name: payload
+    displayName: Payload
+    description: ""
+  

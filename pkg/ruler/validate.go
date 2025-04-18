@@ -46,8 +46,13 @@ func validateCategoriesFields(t RuleIncludeT, tags tagsT) error {
 }
 
 func validateTags(tags []TagT, kind string, dupes tagsT) error {
+
 	for _, t := range tags {
 		if t.Name == "" {
+			log.Error().
+				Any("tag", t).
+				Str("kind", kind).
+				Msg("Missing name")
 			return ErrMissingDisplayName
 		}
 
@@ -62,10 +67,16 @@ func validateTags(tags []TagT, kind string, dupes tagsT) error {
 		dupes[t.Name] = struct{}{}
 
 		if t.DisplayName == "" {
+			log.Error().
+				Str("tag", t.Name).
+				Msg("Missing display name")
 			return ErrMissingDisplayName
 		}
 
 		if t.Description == "" {
+			log.Error().
+				Str("tag", t.Name).
+				Msg("Missing description")
 			return ErrMissingDescription
 		}
 	}

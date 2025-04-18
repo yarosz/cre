@@ -1,0 +1,42 @@
+rules:
+- cre:
+    id: CRE-2025-0029
+    severity: 3
+    title: Loki fails to retrieve AWS credentials when specifying S3 endpoint with IRSA
+    category: storage-problem
+    author: Prequel
+    description: |
+      - When deploying Grafana Loki with AWS S3 as the storage backend and specifying a custom S3 endpoint (e.g., for FIPS compliance or GovCloud regions), Loki may fail to retrieve AWS credentials via IAM Roles for Service Accounts (IRSA). This results in errors during startup or when attempting to upload index tables, preventing Loki from functioning correctly.
+    cause: |
+      - The issue arises when the Loki configuration includes a custom `endpoint` for S3 and relies on IRSA for authentication. In such cases, Loki encounters a `WebIdentityErr` and `SerializationError` due to improper handling of credential retrieval with the specified endpoint.
+    tags:
+      - loki
+      - s3
+      - aws
+      - irsa
+      - storage
+      - authentication
+      - helm
+    mitigation: |
+      - In your Helm chart values, explicitly set `accessKeyId` and `secretAccessKey` to `null` to prevent default values from interfering with IRSA authentication.
+    references:
+      - https://github.com/grafana/loki/issues/12095
+      - https://github.com/grafana/helm-charts/issues/1550#issuecomment-1180365429
+    applications:
+      - name: loki
+        version: < 2.8.0
+        containerName: loki
+    impact: service startup failure
+    impactScore: 6
+    mitigationScore: 5
+    reports: 4
+  metadata:
+    kind: rules
+    id: EnPkxu5326sxXBYXMSUqQv
+    gen: 1
+  rule:
+    set:
+      event:
+        source: logs
+      match:
+        - regex: 'loki.storage.aws: WebIdentityErr: failed to retrieve credentials.*SerializationError.*'

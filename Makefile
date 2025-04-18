@@ -1,5 +1,8 @@
 SHELL := /bin/bash
 
+VERSION_FILE := VERSION
+SEMVER := $(shell cat $(VERSION_FILE))
+
 VERSION ?= $(shell head -n 1 VERSION 2> /dev/null || echo "0.0.0")
 GITHASH := $(shell git rev-parse HEAD)
 

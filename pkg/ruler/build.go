@@ -103,10 +103,12 @@ func processTags(inPath string) (tagsT, error) {
 	}
 
 	if err := validateTagsFields(tagsSection, tags); err != nil {
+		log.Error().Err(err).Str("file", filepath.Join(inPath, tagsDir, tagsYaml)).Msg("Fail validate tags")
 		return nil, err
 	}
 
 	if err := validateCategoriesFields(categoriesSection, tags); err != nil {
+		log.Error().Err(err).Str("file", filepath.Join(inPath, tagsDir, catsYaml)).Msg("Fail validate categories")
 		return nil, err
 	}
 
@@ -154,7 +156,7 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 		}
 
 		if err = validateRules(rules, ruleDupes, termDupes, tags); err != nil {
-			log.Error().Err(err).Msg("Fail validate rules")
+			log.Error().Err(err).Str("file", filepath.Join(path, y.Name())).Msg("Fail validate rules")
 			return nil, err
 		}
 
@@ -227,6 +229,7 @@ func _build(vers, inPath, outPath, packageName string) error {
 		log.Debug().Str("file", e.Name()).Msg("Processing target")
 
 		if r, err = processRules(filepath.Join(inPath, e.Name()), ruleDupes, termDupes, tags); err != nil {
+			log.Error().Err(err).Msg("Fail process rules")
 			return err
 		}
 

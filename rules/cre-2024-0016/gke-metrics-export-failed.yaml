@@ -3,7 +3,7 @@ rules:
       id: CRE-2024-0016
       severity: 3
       title: Google Kubernetes Engine metrics agent failing to export metrics
-      category: observability-problems
+      category: observability-problem
       author: Prequel
       description: The Google Kubernetes Engine metrics agent is failing to export metrics.
       cause: | 
