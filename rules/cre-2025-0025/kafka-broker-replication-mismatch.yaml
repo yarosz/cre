@@ -3,7 +3,7 @@ rules:
       id: CRE-2025-0025
       severity: 2
       title: Kafka broker replication mismatch
-      category: message-queue-problems
+      category: message-queue-problem
       author: Prequel
       description: |
         When the configured replication factor for a Kafka topic is greater than the actual number of brokers in the cluster, Kafka repeatedly fails to assign partitions and logs replication-related errors. This results in persistent warnings or an `InvalidReplicationFactorException` when the broker tries to create internal or user-defined topics.

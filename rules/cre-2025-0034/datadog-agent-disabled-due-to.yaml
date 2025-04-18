@@ -40,6 +40,5 @@ rules:
     set:
       event:
         source: logs
-      window: 5s
       match:
         - regex: .*DD_API_KEY undefined\. Metrics, logs and events will not be reported to DataDog.*

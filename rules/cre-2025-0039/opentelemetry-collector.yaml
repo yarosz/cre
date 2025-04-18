@@ -5,46 +5,33 @@ rules:
     title: OpenTelemetry Collector exporter experiences retryable errors due to backend unavailability
     category: observability-problem
     author: Prequel
-    description: 'The OpenTelemetry Collector may intermittently fail to export telemetry data when the backend API is unavailable
-
-      or overloaded. These failures manifest as timeouts (`context deadline exceeded`) or transient HTTP 502 responses.
-
-      While retry logic is typically enabled, repeated failures can introduce delay or backpressure.
-
-      '
-    cause: 'Exporter components (e.g., `otlphttp`, `sumologic`, `splunk_hec`, `datadog`) may encounter:
-
+    description: |
+      - The OpenTelemetry Collector may intermittently fail to export telemetry data when the backend API is unavailable or overloaded. These failures manifest as timeouts (`context deadline exceeded`) or transient HTTP 502 responses. While retry logic is typically enabled, repeated failures can introduce delay or backpressure.
+    cause: |
+      Exporter components (e.g., `otlphttp`, `sumologic`, `splunk_hec`, `datadog`) may encounter:
       - `context deadline exceeded`: the HTTP request took longer than the configured timeout.
-
       - `502 Bad Gateway`: the remote server returned a generic proxy or load balancer error.
-
       These issues are commonly caused by backend service instability, DNS timeouts, or networking issues in the cluster.
-
-      '
     tags:
-    - otel-collector
-    - exporter
-    - timeout
-    - retry
-    - network
-    - telemetry
-    - known-issue
-    mitigation: '- Ensure `retry_on_failure` is enabled for all exporters.
-
+      - otel-collector
+      - exporter
+      - timeout
+      - retry
+      - network
+      - telemetry
+      - known-issue
+    mitigation: |
+      - Ensure `retry_on_failure` is enabled for all exporters.
       - Tune `timeout` and `sending_queue` settings to absorb temporary backend disruptions.
-
       - Monitor retry counts and dropped items via Collector metrics (e.g., `exporter/send_failed_spans`).
-
       - Consider buffering via Kafka or persistent queues for high-reliability workloads.
-
-      '
     references:
-    - https://github.com/open-telemetry/opentelemetry-collector/blob/main/exporter/exporterhelper/README.md
-    - https://github.com/open-telemetry/opentelemetry-collector/issues?q=context+deadline+exceeded+502
+      - https://github.com/open-telemetry/opentelemetry-collector/blob/main/exporter/exporterhelper/README.md
+      - https://github.com/open-telemetry/opentelemetry-collector/issues?q=context+deadline+exceeded+502
     applications:
-    - name: opentelemetry-collector
-      version: '>=0.80.0'
-      containerName: otel-collector
+      - name: opentelemetry-collector
+        version: '>=0.80.0'
+        containerName: otel-collector
     impact: telemetry delay or export failure due to network or backend errors
     impactScore: 5
     mitigationScore: 3
@@ -59,5 +46,5 @@ rules:
         source: logs
       window: 50s
       match:
-      - regex: .*Exporting failed.*context deadline exceeded.*
-      - regex: .*Heartbeat error.*502 Bad Gateway.*
+        - regex: .*Exporting failed.*context deadline exceeded.*
+        - regex: .*Heartbeat error.*502 Bad Gateway.*

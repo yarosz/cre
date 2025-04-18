@@ -39,6 +39,7 @@ rules:
     set:
       event:
         source: aws-eks-nodeagent
+      window: 10s
       match:
         - value: the server could not find the requested resource (get volumesnapshotcontents.snapshot.storage.k8s.io)
         - value: Unhandled Error
