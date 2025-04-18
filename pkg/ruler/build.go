@@ -64,6 +64,7 @@ func RunBuild(inPath, outPath, vers string) error {
 	}
 
 	if err := _build(vers, inPath, outPath, packageName); err != nil {
+		log.Error().Err(err).Msg("Fail build")
 		return err
 	}
 
@@ -227,6 +228,7 @@ func _build(vers, inPath, outPath, packageName string) error {
 		log.Debug().Str("file", e.Name()).Msg("Processing target")
 
 		if r, err = processRules(filepath.Join(inPath, e.Name()), ruleDupes, termDupes, tags); err != nil {
+			log.Error().Err(err).Msg("Fail process rules")
 			return err
 		}
 
