@@ -69,9 +69,39 @@ When submitting a PR, please include:
 
 For more details on our pull request process, see the “Submitting a Pull Request” section below.
 
-## Building
+## Unique IDs
 
-### Schema
+### CRE IDs
+
+When you open a new PR to add a new rule, you will receive a new CRE identifier in the PR.
+
+### Rule IDs
+
+Use the `ruler` tool to generate a new rule ID hash.
+
+```bash
+$ ./bin/ruler id 
+DCejCw6644SvCgdJ5XT3bm
+```
+
+You generate more than one rule ID at a time.
+
+```bash
+$ ./bin/ruler id -n 5
+DXKSK2oKMnPsi8at51bEC6
+GMT1B5FUQj7ftGBAiWcFkg
+Cz3K1hq64GvVbrvyddUaRQ
+S4SRL9GZCGpD33aE3eZPW
+T7yUNfneHUjSTLUtb7nq2f
+```
+
+## Tags and Categories
+
+When adding a new category or tag for a rule, you must also add it to the tags.yaml or categories.yaml file in the `rules/tags/` folder. The name of the tag must be globally unique across all tags and categories. The `description` and `displayName` fields are required.
+
+We try to keep categories more generic and use tags to be more specific. Category should allow bundling rules by problems across specific technologies in tags.
+
+## Schema
 
 It is recommended to add the CRE JSON schema in Cursor or VSCode. Install the [Yaml extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) and add the following to your settings.json:
 
@@ -95,25 +125,87 @@ This will enforce the schema on Yaml files in the root of the CRE repository und
 
 Go to VSCode Settings. Then search for "settings" and click `Edit in settings.json`.
 
-### Using the `ruler` build tool
+## Building
 
-### From source
+To be consumed by `preq` or any other problem detector, CREs should be combined into one Yaml document using the latest `ruler` release.
+
+The `ruler` tool also performs the following checks before producing a combined Yaml document:
+
+* Verifies that all referenced tags and categories from CREs exist in the tags.yaml and categories.yaml files
+* Verifies there are no duplicate CRE or rule IDs
+* Verifies rules do not have any syntax or semantic errors
+
+### From the latest release of `ruler`
+
+Use the `-p` argument to specify the path to the `rules/` folder and `-o` to specify the output folder for the final CRE Yaml document.
+
+```bash
+ruler-linux-amd64 build -p rules -o ./bin
+Apr 22 16:18:52.941682 INF build.go:208 > Building outPath=./bin vers=v0.3.10
+Apr 22 16:18:52.943047 INF build.go:184 > Rule hash=CAbgxyQnLLP12A6GrRHAdcBsbtstGio1gEAj3kLqyRe9 id=CRE-2024-0007
+Apr 22 16:18:52.943277 INF build.go:184 > Rule hash=7QuPUNsDLabUWYVKWWbSNeqHZt3vG84VvbnpKqvrA5yr id=CRE-2024-0016
+Apr 22 16:18:52.943448 INF build.go:184 > Rule hash=AGYhkt4mrh9j9pmq3BEzmESbjHr8MCNjQa5CRrvmzh2S id=CRE-2024-0043
+Apr 22 16:18:52.943659 INF build.go:184 > Rule hash=7DrXpqkkXSCUMKbvmJVEugnpxzVxPTRnjYMvEJoRUi1t id=CRE-2024-0021
+Apr 22 16:18:52.943871 INF build.go:184 > Rule hash=3PE3ZmUcEfBkMg3k9StDJmqPAi8FSTPxqAa61YqjpcGw id=CRE-2025-0025
+Apr 22 16:18:52.944156 INF build.go:184 > Rule hash=4D5wnjqwGLVgg3DJemdC7uRudZAcMjq22isKiqJ8DoaX id=CRE-2025-0026
+Apr 22 16:18:52.944370 INF build.go:184 > Rule hash=Dm7tjHxxRCwdH6YmBe1K26kUp3RNSkCwkE3f1LrdLjDD id=CRE-2025-0027
+Apr 22 16:18:52.944620 INF build.go:184 > Rule hash=AQDNkhwFYb9HU5tzUdvmYB84aVUnoxSTEgSA3KP8PJyi id=CRE-2025-0028
+Apr 22 16:18:52.944838 INF build.go:184 > Rule hash=39tpJniD6H5K2pvsP29kKm1dmQ3P1JzL7L934aFRu4JL id=CRE-2025-0029
+Apr 22 16:18:52.945043 INF build.go:184 > Rule hash=3ZMgEmL3vUYYndeHfUDrDVnETR9hJeU5r3xfsBQfiG6s id=CRE-2025-0030
+Apr 22 16:18:52.945250 INF build.go:184 > Rule hash=8U4gFoQrEDjSWTEKZThpYoY7kfGSJ5tdfhoTxXxHY5By id=CRE-2025-0031
+Apr 22 16:18:52.945464 INF build.go:184 > Rule hash=44ujRdhMFqc1rGAzEQLPt8MyixRNdnWSupLJMA2SsLf6 id=CRE-2025-0032
+Apr 22 16:18:52.945651 INF build.go:184 > Rule hash=Bk7SGsBStG3c8UQW9FSdzP3cYBK5HL3R5HPhZazfyMJe id=CRE-2025-0033
+Apr 22 16:18:52.945846 INF build.go:184 > Rule hash=4irDu2Tw3BH8NhGRe7brVW2EkgHu3j7yVTRwJJPc1u5F id=CRE-2025-0034
+Apr 22 16:18:52.946057 INF build.go:184 > Rule hash=EzWAm2EvfySF2vZtc3xNAhhY6punkULn5ymZ1wSdwcXA id=CRE-2025-0035
+Apr 22 16:18:52.946277 INF build.go:184 > Rule hash=88jxCTk7gozKvFjB4Vpc2ndxfziMANRStrJm79QRUM7W id=CRE-2025-0036
+Apr 22 16:18:52.946491 INF build.go:184 > Rule hash=Htzxhggwe3vtCQC3WURCCHTgrU4KSbAhWQYMTWQjgCSQ id=CRE-2025-0037
+Apr 22 16:18:52.946674 INF build.go:184 > Rule hash=G6c2SyYC5stJpjAGrG2T9JmZMbX7kbKGVC9bicJX3XHX id=CRE-2025-0038
+Apr 22 16:18:52.946909 INF build.go:184 > Rule hash=9mbKubGuV85CQsxkJAszegmQHkiU5qvNMWu1FitdYKGy id=CRE-2025-0039
+Apr 22 16:18:52.947124 INF build.go:184 > Rule hash=Dtd1HsWKuzGmVUNoRpTTD9CuXdUgSKa69G2r56jj9v1F id=CRE-2025-0040
+Apr 22 16:18:52.947329 INF build.go:184 > Rule hash=3ASBTPgnhNuKUEPfKYyH4sgcKZhZWcCtZ8snQNdqm5iV id=CRE-2025-0041
+Apr 22 16:18:52.947535 INF build.go:184 > Rule hash=CNu2xuaY7dKoPXeD9vLYDuTAhrwZLcZhRGGGKpaPs4TV id=CRE-2025-0042
+Apr 22 16:18:52.947747 INF build.go:184 > Rule hash=F7rmaDG6dN7ymn66im5HPquFwCK7eyWPM8aFrTRu71bu id=CRE-2025-0043
+Wrote file: cre-rules.0.3.10.yaml
+```
+
+### From `ruler` source
 
 Ensure you have [Go 1.24.1 or newer](https://go.dev/doc/install) installed.
 
 ```bash
 $ make
 rm -rf bin/*
-Apr  6 12:26:22.426820 INF ruler.go:32 > Starting creVersion=0.3.5 gitHash=bab564291a90d398612bb8624f5deb021d396fbf
-Apr  6 12:26:22.426952 INF build.go:204 > Building outPath=./bin vers=v0.3.5
-Apr  6 12:26:22.427611 INF build.go:180 > Rule hash=3JJigAvM37cTd12UHSUAW62ESCbmsyoP8yaLMG2ciZHn id=CRE-2024-0007
-Apr  6 12:26:22.427760 INF build.go:180 > Rule hash=9tYbXspjokxGYy4h77Y22XzMKYKC87cG51rAc5XX6beA id=CRE-2024-0016
-Apr  6 12:26:22.427917 INF build.go:180 > Rule hash=BsNNmQfmwjreJdBChDXKCsJbXFerepS4PpCVWEKxdLu1 id=CRE-2024-0021
-Wrote file [sha256 b6cea0c37104234650e00807a5ab23096061cd22e3e2d64df74b5358cf97f875]: cre-rules.0.3.5.b6cea0c3.yaml
-Wrote hash file: bin/cre-rules.0.3.5.b6cea0c3.yaml.sha256
+mkdir -p ./bin
+Apr 22 16:04:32.555432 INF build.go:208 > Building outPath=./bin vers=v0.3.10
+Apr 22 16:04:32.556809 INF build.go:184 > Rule hash=CAbgxyQnLLP12A6GrRHAdcBsbtstGio1gEAj3kLqyRe9 id=CRE-2024-0007
+Apr 22 16:04:32.557037 INF build.go:184 > Rule hash=7QuPUNsDLabUWYVKWWbSNeqHZt3vG84VvbnpKqvrA5yr id=CRE-2024-0016
+Apr 22 16:04:32.557216 INF build.go:184 > Rule hash=AGYhkt4mrh9j9pmq3BEzmESbjHr8MCNjQa5CRrvmzh2S id=CRE-2024-0043
+Apr 22 16:04:32.557429 INF build.go:184 > Rule hash=7DrXpqkkXSCUMKbvmJVEugnpxzVxPTRnjYMvEJoRUi1t id=CRE-2024-0021
+Apr 22 16:04:32.557623 INF build.go:184 > Rule hash=3PE3ZmUcEfBkMg3k9StDJmqPAi8FSTPxqAa61YqjpcGw id=CRE-2025-0025
+Apr 22 16:04:32.557900 INF build.go:184 > Rule hash=4D5wnjqwGLVgg3DJemdC7uRudZAcMjq22isKiqJ8DoaX id=CRE-2025-0026
+Apr 22 16:04:32.558103 INF build.go:184 > Rule hash=Dm7tjHxxRCwdH6YmBe1K26kUp3RNSkCwkE3f1LrdLjDD id=CRE-2025-0027
+Apr 22 16:04:32.558308 INF build.go:184 > Rule hash=AQDNkhwFYb9HU5tzUdvmYB84aVUnoxSTEgSA3KP8PJyi id=CRE-2025-0028
+Apr 22 16:04:32.558495 INF build.go:184 > Rule hash=39tpJniD6H5K2pvsP29kKm1dmQ3P1JzL7L934aFRu4JL id=CRE-2025-0029
+Apr 22 16:04:32.558691 INF build.go:184 > Rule hash=3ZMgEmL3vUYYndeHfUDrDVnETR9hJeU5r3xfsBQfiG6s id=CRE-2025-0030
+Apr 22 16:04:32.558907 INF build.go:184 > Rule hash=8U4gFoQrEDjSWTEKZThpYoY7kfGSJ5tdfhoTxXxHY5By id=CRE-2025-0031
+Apr 22 16:04:32.559118 INF build.go:184 > Rule hash=44ujRdhMFqc1rGAzEQLPt8MyixRNdnWSupLJMA2SsLf6 id=CRE-2025-0032
+Apr 22 16:04:32.559303 INF build.go:184 > Rule hash=Bk7SGsBStG3c8UQW9FSdzP3cYBK5HL3R5HPhZazfyMJe id=CRE-2025-0033
+Apr 22 16:04:32.559487 INF build.go:184 > Rule hash=4irDu2Tw3BH8NhGRe7brVW2EkgHu3j7yVTRwJJPc1u5F id=CRE-2025-0034
+Apr 22 16:04:32.559693 INF build.go:184 > Rule hash=EzWAm2EvfySF2vZtc3xNAhhY6punkULn5ymZ1wSdwcXA id=CRE-2025-0035
+Apr 22 16:04:32.559920 INF build.go:184 > Rule hash=88jxCTk7gozKvFjB4Vpc2ndxfziMANRStrJm79QRUM7W id=CRE-2025-0036
+Apr 22 16:04:32.560158 INF build.go:184 > Rule hash=Htzxhggwe3vtCQC3WURCCHTgrU4KSbAhWQYMTWQjgCSQ id=CRE-2025-0037
+Apr 22 16:04:32.560351 INF build.go:184 > Rule hash=G6c2SyYC5stJpjAGrG2T9JmZMbX7kbKGVC9bicJX3XHX id=CRE-2025-0038
+Apr 22 16:04:32.560574 INF build.go:184 > Rule hash=9mbKubGuV85CQsxkJAszegmQHkiU5qvNMWu1FitdYKGy id=CRE-2025-0039
+Apr 22 16:04:32.560787 INF build.go:184 > Rule hash=Dtd1HsWKuzGmVUNoRpTTD9CuXdUgSKa69G2r56jj9v1F id=CRE-2025-0040
+Apr 22 16:04:32.561004 INF build.go:184 > Rule hash=3ASBTPgnhNuKUEPfKYyH4sgcKZhZWcCtZ8snQNdqm5iV id=CRE-2025-0041
+Apr 22 16:04:32.561250 INF build.go:184 > Rule hash=CNu2xuaY7dKoPXeD9vLYDuTAhrwZLcZhRGGGKpaPs4TV id=CRE-2025-0042
+Apr 22 16:04:32.561468 INF build.go:184 > Rule hash=F7rmaDG6dN7ymn66im5HPquFwCK7eyWPM8aFrTRu71bu id=CRE-2025-0043
+Wrote file: cre-rules.0.3.10.yaml
 ```
 
-### Testing a rule
+## Testing a rule
+
+We will be adding tests in an upcoming release. In the meantime, we test with both `preq` and [the CRE playground](https://play.prequel.dev).
 
 ## Signing the contributor license agreement
 

@@ -13,7 +13,7 @@ import (
 
 var cli struct {
 	IdCmd struct {
-		Num int ` optional:"" arg:"" default:"1" name:"num" help:"Number to generate."`
+		Num int `name:"num" short:"n" help:"Number to generate." default:"1"`
 	} `cmd:"" name:"id" short:"i" help:"Generate random id."`
 	BuildCmd struct {
 		InPath  string `name:"path" short:"p" help:"Path to read rules" default:"rules"`

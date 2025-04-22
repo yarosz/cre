@@ -9,7 +9,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/prequel-dev/prequel/pkg/parser"
+	"github.com/prequel-dev/prequel-compiler/pkg/ast"
+	"github.com/prequel-dev/prequel-compiler/pkg/parser"
+	"github.com/prequel-dev/prequel-compiler/pkg/pqerr"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/mod/semver"
 	"gopkg.in/yaml.v3"
@@ -120,8 +122,8 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 	var (
 		rulesData []byte
 		allRules  = &parser.RulesT{
-			Rules: make([]parser.ParseRuleT, 0),
-			Terms: make(map[string]parser.ParseTermT),
+			Rules:  make([]parser.ParseRuleT, 0),
+			TermsT: make(map[string]parser.ParseTermT),
 		}
 		err error
 	)
@@ -134,7 +136,10 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 
 	for _, y := range yamls {
 
-		var rules parser.RulesT
+		var (
+			rules parser.RulesT
+			f     = filepath.Join(path, y.Name())
+		)
 
 		log.Debug().
 			Str("file", y.Name()).
@@ -144,9 +149,14 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 			continue
 		}
 
-		rulesData, err = os.ReadFile(filepath.Join(path, y.Name()))
+		rulesData, err = os.ReadFile(f)
 		if err != nil {
 			log.Error().Err(err).Msg("Fail read rules")
+			return nil, err
+		}
+
+		if err = compile(rulesData); err != nil {
+			pqerr.WithFile(err, f)
 			return nil, err
 		}
 
@@ -176,8 +186,8 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 			allRules.Rules = append(allRules.Rules, rule)
 		}
 
-		for key, term := range rules.Terms {
-			allRules.Terms[key] = term
+		for key, term := range rules.TermsT {
+			allRules.TermsT[key] = term
 		}
 	}
 
@@ -237,13 +247,19 @@ func _build(vers, inPath, outPath, packageName string) error {
 			allRules[rule.Cre.Id] = rule
 		}
 
-		for key, term := range r.Terms {
+		for key, term := range r.TermsT {
 			allTerms[key] = term
 		}
 	}
 
 	doc, err := generateDocument(allRules, allTerms)
 	if err != nil {
+		return err
+	}
+
+	// Validate final document compiles
+	if err = compileCombinedDoc(doc); err != nil {
+		log.Error().Err(err).Msg("Fail compile")
 		return err
 	}
 
@@ -255,6 +271,37 @@ func _build(vers, inPath, outPath, packageName string) error {
 	}
 
 	fmt.Printf("Wrote file: %s\n", fileName)
+
+	return nil
+}
+
+func compile(data []byte) error {
+
+	var (
+		err error
+	)
+
+	if _, err = ast.Build(data); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func compileCombinedDoc(data []byte) error {
+
+	var (
+		rules *parser.RulesT
+		err   error
+	)
+
+	if rules, err = parser.Read(bytes.NewReader(data)); err != nil {
+		return err
+	}
+
+	if _, err := parser.ParseRules(rules); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -299,8 +346,8 @@ func generateDocument(rules map[string]parser.ParseRuleT, terms map[string]parse
 	var buf bytes.Buffer
 
 	doc := parser.RulesT{
-		Rules: make([]parser.ParseRuleT, 0),
-		Terms: make(map[string]parser.ParseTermT),
+		Rules:  make([]parser.ParseRuleT, 0),
+		TermsT: make(map[string]parser.ParseTermT),
 	}
 
 	for _, k := range ruleKeys {
@@ -310,7 +357,7 @@ func generateDocument(rules map[string]parser.ParseRuleT, terms map[string]parse
 
 	for _, k := range termKeys {
 		log.Debug().Any("term", terms[k]).Msg("Adding term")
-		doc.Terms[k] = terms[k]
+		doc.TermsT[k] = terms[k]
 	}
 
 	y, err := yaml.Marshal(&doc)
