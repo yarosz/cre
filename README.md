@@ -48,8 +48,28 @@ The fastest way to quickly test a rule on data is with the [CRE playground](http
 
 New contributors are encouraged to join the problem detection community add new CREs. Learn how to contribute in [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Rule Coverage
+
+| Data Source | Reference
+|-|-|
+cre.log.aws.eks-nodeagent | https://github.com/aws/aws-network-policy-agent
+cre.log.datadog.agent | https://github.com/DataDog/datadog-agent
+cre.log.django | https://github.com/django/django
+cre.log.gke-metrics-agent | https://cloud.google.com/kubernetes-engine/docs/how-to/configure-metrics
+cre.log.grafana | https://github.com/grafana/grafana
+cre.log.kafka | https://kafka.apache.org/
+cre.log.keda-operator | https://github.com/kedacore/keda 
+cre.log.loki | https://github.com/grafana/loki
+cre.log.neutron | https://opendev.org/openstack/neutron 
+cre.log.nginx | https://nginx.org/
+cre.log.opentelemetry-collector | https://github.com/open-telemetry/opentelemetry-collector
+cre.log.opentelemetry-python | https://github.com/open-telemetry/opentelemetry-python
+cre.log.rabbitmq | https://github.com/rabbitmq/rabbitmq-server
+cre.log.redis-py | https://github.com/redis/redis-py
+cre.log.sqlalchemy | https://github.com/sqlalchemy/sqlalchemy
+
 ## Join the community!
 
 * [Discussions](https://github.com/prequel-dev/cre/discussions)
 * [Slack](https://prequel-dev.slack.com/)
-* [Detect.sh](https://www.detect.sh/) mailing list
+* [Mailing list](https://www.detect.sh/) mailing list
