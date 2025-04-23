@@ -1,7 +1,7 @@
 package ruler
 
 import (
-	"github.com/prequel-dev/prequel/pkg/parser"
+	"github.com/prequel-dev/prequel-compiler/pkg/parser"
 )
 
 type RuleIncludeT struct {

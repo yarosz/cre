@@ -21,25 +21,25 @@ bindir:
 
 .PHONY: ruler
 ruler: bindir
-	@env CGO_ENABLED=0 go build -ldflags "${LD_FLAGS}" -o ./bin/ruler-${SEMVER} ./cmd/ruler/ruler.go
+	@env CGO_ENABLED=0 go build -ldflags "${LD_FLAGS}" -o ./bin/ruler ./cmd/ruler/ruler.go
 
 .PHONY: linux
 linux: bindir
-	@env GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildmode=pie -trimpath -ldflags "${LD_FLAGS}" -o ./bin/ruler-${SEMVER}-linux-amd64 ./cmd/ruler/ruler.go
-	@env GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildmode=pie -trimpath -ldflags "${LD_FLAGS}" -o ./bin/ruler-${SEMVER}-linux-arm64 ./cmd/ruler/ruler.go
+	@env GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildmode=pie -trimpath -ldflags "${LD_FLAGS}" -o ./bin/ruler-linux-amd64 ./cmd/ruler/ruler.go
+	@env GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildmode=pie -trimpath -ldflags "${LD_FLAGS}" -o ./bin/ruler-linux-arm64 ./cmd/ruler/ruler.go
 
 .PHONY: darwin
 darwin: bindir
-	@env GOOS=darwin GOARCH=arm64 CGO_ENABLED=0 go build -buildmode=pie -trimpath -ldflags "${LD_FLAGS}" -o ./bin/ruler-${SEMVER}-darwin-arm64 ./cmd/ruler/ruler.go
+	@env GOOS=darwin GOARCH=arm64 CGO_ENABLED=0 go build -buildmode=pie -trimpath -ldflags "${LD_FLAGS}" -o ./bin/ruler-darwin-arm64 ./cmd/ruler/ruler.go
 
 .PHONY: windows
 windows: bindir
-	@env GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -buildmode=pie -trimpath -ldflags "${LD_FLAGS}" -o ./bin/ruler-${SEMVER}-windows-amd64 ./cmd/ruler/ruler.go
+	@env GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -buildmode=pie -trimpath -ldflags "${LD_FLAGS}" -o ./bin/ruler-windows-amd64 ./cmd/ruler/ruler.go
 
 .PHONY: rules
-rules:
+rules: ruler
 	@mkdir -p bin/rules/
-	@./bin/ruler-${SEMVER} build -p rules -o ./bin
+	@./bin/ruler build -p rules -o ./bin
 
 .PHONY: clean
 clean:

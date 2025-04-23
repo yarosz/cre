@@ -3,8 +3,8 @@ package ruler
 import (
 	"errors"
 
-	"github.com/prequel-dev/prequel/pkg/parser"
-	"github.com/prequel-dev/prequel/pkg/schema"
+	"github.com/prequel-dev/prequel-compiler/pkg/parser"
+	"github.com/prequel-dev/prequel-compiler/pkg/schema"
 	"github.com/rs/zerolog/log"
 )
 
@@ -137,7 +137,7 @@ func validateRules(rules parser.RulesT, allRules, allTerms dupesT, tags tagsT) e
 		}
 	}
 
-	for key := range rules.Terms {
+	for key := range rules.TermsT {
 		if _, ok := allTerms[key]; ok {
 			log.Error().
 				Str("id", key).
