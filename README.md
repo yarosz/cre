@@ -1,4 +1,10 @@
-# Common Relability Enumerations (CREs)
+# CRE - Common Relability Enumerations
+
+An open standard for naming, categorizing, and detecting reliability problems
+
+[Documentation](https://docs.prequel.dev/cres/introduction) | [Slack](https://prequel-dev.slack.com/) | [Playground](https://play.prequel.dev/) | [Mailing List](https://www.detect.sh)
+
+---
 
 ## Overview
 
