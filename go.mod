@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/kong v1.10.0
 	github.com/btcsuite/btcutil v1.0.2
 	github.com/google/uuid v1.6.0
-	github.com/prequel-dev/prequel-compiler v0.0.4
+	github.com/prequel-dev/prequel-compiler v0.0.7
 	github.com/rs/zerolog v1.34.0
 	golang.org/x/mod v0.24.0
 	gopkg.in/yaml.v3 v3.0.1

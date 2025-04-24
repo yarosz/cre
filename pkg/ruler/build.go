@@ -11,7 +11,6 @@ import (
 
 	"github.com/prequel-dev/prequel-compiler/pkg/ast"
 	"github.com/prequel-dev/prequel-compiler/pkg/parser"
-	"github.com/prequel-dev/prequel-compiler/pkg/pqerr"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/mod/semver"
 	"gopkg.in/yaml.v3"
@@ -137,7 +136,7 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 	for _, y := range yamls {
 
 		var (
-			rules parser.RulesT
+			rules *parser.RulesT
 			f     = filepath.Join(path, y.Name())
 		)
 
@@ -155,12 +154,7 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 			return nil, err
 		}
 
-		if err = compile(rulesData); err != nil {
-			pqerr.WithFile(err, f)
-			return nil, err
-		}
-
-		if err := yaml.Unmarshal(rulesData, &rules); err != nil {
+		if rules, err = parser.Unmarshal(rulesData); err != nil {
 			log.Error().Err(err).Msg("Fail unmarshal rules")
 			return nil, err
 		}
@@ -170,25 +164,31 @@ func processRules(path string, ruleDupes, termDupes dupesT, tags tagsT) (*parser
 			return nil, err
 		}
 
-		log.Trace().Any("rules", rules).Msg("Rules")
+		for i, rule := range rules.Rules {
 
-		for _, rule := range rules.Rules {
-			rule.Metadata.Hash, err = hashRule(rule)
+			var r = &rules.Rules[i]
+
+			r.Metadata.Hash, err = hashRule(rule)
 			if err != nil {
 				return nil, err
 			}
 
 			log.Info().
-				Str("hash", rule.Metadata.Hash).
-				Str("id", rule.Cre.Id).
+				Str("hash", r.Metadata.Hash).
+				Str("id", r.Cre.Id).
 				Msg("Rule")
 
-			allRules.Rules = append(allRules.Rules, rule)
+			allRules.Rules = append(allRules.Rules, *r)
 		}
 
 		for key, term := range rules.TermsT {
 			allRules.TermsT[key] = term
 		}
+
+		if err = compile(rules); err != nil {
+			return nil, err
+		}
+
 	}
 
 	return allRules, nil
@@ -275,13 +275,32 @@ func _build(vers, inPath, outPath, packageName string) error {
 	return nil
 }
 
-func compile(data []byte) error {
+func unmarshal(data []byte) (*parser.RulesT, error) {
 
 	var (
-		err error
+		rules *parser.RulesT
+		err   error
 	)
 
-	if _, err = ast.Build(data); err != nil {
+	if rules, err = parser.Unmarshal(data); err != nil {
+		return nil, err
+	}
+
+	return rules, nil
+}
+
+func compile(rules *parser.RulesT) error {
+
+	var (
+		tree *parser.TreeT
+		err  error
+	)
+
+	if tree, err = parser.ParseRules(rules); err != nil {
+		return err
+	}
+
+	if _, err = ast.BuildTree(tree); err != nil {
 		return err
 	}
 

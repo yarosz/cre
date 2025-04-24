@@ -73,7 +73,7 @@ For more details on our pull request process, see the “Submitting a Pull Reque
 
 ### CRE IDs
 
-When you open a new PR to add a new rule, you will receive a new CRE identifier in the PR.
+When you open a new PR to add a new rule, you will receive a new CRE identifier in the PR. CRE IDs must be of the form `CRE-YEAR-0123`.
 
 ### Rule IDs
 
@@ -94,6 +94,8 @@ Cz3K1hq64GvVbrvyddUaRQ
 S4SRL9GZCGpD33aE3eZPW
 T7yUNfneHUjSTLUtb7nq2f
 ```
+
+Rule ID and hashes have a minimum length requirement of 12 characters. Only alpha-numerics are supported. No special characters.
 
 ## Tags and Categories
 
