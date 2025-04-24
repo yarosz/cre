@@ -84,7 +84,7 @@ func validateTags(tags []TagT, kind string, dupes tagsT) error {
 	return nil
 }
 
-func validateRules(rules parser.RulesT, allRules, allTerms dupesT, tags tagsT) error {
+func validateRules(rules *parser.RulesT, allRules, allTerms dupesT, tags tagsT) error {
 
 	for _, rule := range rules.Rules {
 
