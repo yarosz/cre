@@ -66,6 +66,7 @@ cre.log.grafana | https://github.com/grafana/grafana
 cre.log.kafka | https://kafka.apache.org/
 cre.log.keda-operator | https://github.com/kedacore/keda 
 cre.log.loki | https://github.com/grafana/loki
+cre.log.nats | https://github.com/nats-io/
 cre.log.neutron | https://opendev.org/openstack/neutron 
 cre.log.nginx | https://nginx.org/
 cre.log.opentelemetry-collector | https://github.com/open-telemetry/opentelemetry-collector
@@ -78,4 +79,4 @@ cre.log.sqlalchemy | https://github.com/sqlalchemy/sqlalchemy
 
 * [Discussions](https://github.com/prequel-dev/cre/discussions)
 * [Slack](https://prequel-dev.slack.com/)
-* [Mailing list](https://www.detect.sh/) mailing list
+* [Mailing list](https://www.detect.sh/)
