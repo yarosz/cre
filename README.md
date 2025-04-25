@@ -1,4 +1,4 @@
-# CRE - Common Relability Enumerations
+# CRE - Common Reliability Enumerations
 
 An open standard for naming, categorizing, and detecting reliability problems
 
