@@ -49,6 +49,6 @@ rules:
   rule:
     set:
       event:
-        source: cre.logs.nats
+        source: cre.log.nats
       match:
         - value: "nats: Authorization Violation"

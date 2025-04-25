@@ -44,6 +44,6 @@ rules:
   rule:
     set:
       event:
-        source: cre.logs.nats
+        source: cre.log.nats
       match:
         - regex: "nats: permissions violation: Permissions Violation for (Publish|Subscription) to .*"
