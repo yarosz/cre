@@ -59,6 +59,7 @@ New contributors are encouraged to join the problem detection community add new 
 ### Tags
 
 * [Tags](rules/tags/tags.yaml)
+* [Categories](rules/tags/categories.yaml)
 
 ### Technologies
 
