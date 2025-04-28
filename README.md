@@ -56,6 +56,8 @@ New contributors are encouraged to join the problem detection community add new 
 
 ## Rule Coverage
 
+* [Tags](rules/tags/tags.yaml)
+
 | Data Source | Reference
 |-|-|
 cre.log.aws.eks-nodeagent | https://github.com/aws/aws-network-policy-agent
