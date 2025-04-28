@@ -56,7 +56,11 @@ New contributors are encouraged to join the problem detection community add new 
 
 ## Rule Coverage
 
+### Tags
+
 * [Tags](rules/tags/tags.yaml)
+
+### Technologies
 
 | Data Source | Reference
 |-|-|
