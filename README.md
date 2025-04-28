@@ -48,7 +48,7 @@ The fastest way to quickly test a rule on data is with the [CRE playground](http
 
 ### Problem Detector
 
-[Prequel](https://github.com/prequel-dev/prequel) is a free and open community-driven reliability problem detector that runs CREs on data. Use it to develop and test CREs on Linux, macOS, or Windows.
+[preq](https://github.com/prequel-dev/preq) is a free and open community-driven reliability problem detector that runs CREs on data. Use it to develop and test CREs on Linux, macOS, or Windows.
 
 ## How to contribute
 
