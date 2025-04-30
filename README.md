@@ -65,6 +65,7 @@ New contributors are encouraged to join the problem detection community add new 
 
 | Data Source | Reference
 |-|-|
+cre.config.nginx | https://nginx.org/
 cre.log.aws.eks-nodeagent | https://github.com/aws/aws-network-policy-agent
 cre.log.datadog.agent | https://github.com/DataDog/datadog-agent
 cre.log.django | https://github.com/django/django
