@@ -4,6 +4,7 @@ An open standard for naming, categorizing, and detecting reliability problems
 
 [Documentation](https://docs.prequel.dev/cres/introduction) | [Slack](https://prequel-dev.slack.com/) | [Playground](https://play.prequel.dev/) | [Mailing List](https://www.detect.sh)
 
+[![Unit Tests](https://github.com/prequel-dev/cre/actions/workflows/build.yml/badge.svg)](https://github.com/prequel-dev/cre/actions/workflows/build.yml)
 ---
 
 ## Overview
