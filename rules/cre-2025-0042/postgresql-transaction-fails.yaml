@@ -1,7 +1,7 @@
 rules:
 - cre:
     id: CRE-2025-0042
-    severity: 4
+    severity: 0
     title: PostgreSQL transaction fails with deadlock detected error in psycopg2 and Django
     category: database-problem
     author: Prequel
@@ -18,6 +18,7 @@ rules:
       - transaction
       - deadlock
       - operational error
+      - public
       - known-issue
     mitigation: "- Ensure that transactions access rows in a consistent order across code paths.\n- Break large transactions into smaller units of work.\n- Use explicit `select_for_update()` to control locking behavior and reduce contention.\n- Monitor PostgreSQL\u2019s `pg_stat_activity` and `pg_locks` to detect deadlock-prone queries.\n"
     references:
