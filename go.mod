@@ -7,7 +7,7 @@ require (
 	github.com/btcsuite/btcutil v1.0.2
 	github.com/google/uuid v1.6.0
 	github.com/prequel-dev/preq v0.1.20
-	github.com/prequel-dev/prequel-compiler v0.0.12
+	github.com/prequel-dev/prequel-compiler v0.0.13
 	github.com/rs/zerolog v1.34.0
 	golang.org/x/mod v0.24.0
 	gopkg.in/yaml.v3 v3.0.1
