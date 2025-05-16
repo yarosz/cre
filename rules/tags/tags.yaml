@@ -330,12 +330,54 @@ tags:
   - name: public
     displayName: Public
     description: Open source CREs contributed by the problem detection community
-  - name: kubernetes-problem
-    displayName: Kubernetes Problem
-    description: Problems related to Kubernetes, such as pod failures, API errors, or scheduling issues
   - name: kubelet
     displayName: Kubelet
     description: Problems related to Kubelet, such as node not ready, or pod failures
   - name: dns
     displayName: DNS
     description: Problems related to DNS, such as hostname resolution failures, or DNS server misconfigurations
+  - name: api-server
+    displayName: API Server
+    description: Issues involving the Kubernetes API server, such as request failures, unavailability, or authentication errors
+  - name: throttling
+    displayName: Throttling
+    description: Problems where requests are delayed or dropped due to client-side or server-side rate limits or resource contention
+  - name: performance
+    displayName: Performance
+    description: Issues that impact system responsiveness or efficiency, such as latency, CPU/memory bottlenecks, or slow processing
+  - name: rate-limiting
+    displayName: Rate Limiting
+    description: Problems where systems enforce limits on request rates, often resulting in 429 errors or degraded service behavior
+  - name: upstream-failure
+    displayName: Upstream Failure
+    description: Issues where Nginx cannot successfully forward requests to backend services, often due to timeouts, invalid responses, or backend outages
+  - name: connection-refused
+    displayName: Connection Refused
+    description: Errors where a connection attempt is rejected by the target server, commonly indicating that the service is down or not listening on the expected port
+  - name: backend-issue
+    displayName: Backend Issue
+    description: Issues related to the backend system
+  - name: buffer
+    displayName: Buffer
+    description: Issues related to buffering
+  - name: capacity-issue
+    displayName: Capacity Issue
+    description: Issues related to system capacity
+  - name: connectivity
+    displayName: Connectivity
+    description: Issues related to network connectivity
+  - name: header-size
+    displayName: Header Size
+    description: Issues related to the size of headers
+  - name: upload-limits
+    displayName: Upload Limits
+    description: Issues or topics related to upload size limits
+  - name: proxy
+    displayName: Proxy
+    description: Issues or topics related to proxy configurations or usage
+  - name: request-size
+    displayName: Request Size
+    description: Problems or considerations related to the size of requests
+  - name: web-server
+    displayName: Web Server
+    description: Problems or topics related to web server configurations or issues

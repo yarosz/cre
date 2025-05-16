@@ -1,0 +1,41 @@
+rules:
+  - cre:
+      applications:
+          - name: nginx
+      author: Prequel
+      category: load-balancer-problems
+      cause: "This issue occurs when all servers defined in an NGINX upstream block are unreachable, \nhave failed health checks, or are otherwise unable to accept connections. This could be due to \nbackend server failures, network connectivity issues, or misconfiguration in the upstream definition.\n"
+      description: "NGINX is reporting that all backend servers in an upstream group are unavailable. \nThis means that NGINX cannot route requests to any of its configured backend servers, \nresulting in client-facing errors.\n"
+      id: CRE-2025-0051
+      impact: "All client requests that should be forwarded to the affected upstream group will fail, \nresulting in HTTP 502 Bad Gateway errors being returned to clients. This effectively \ncreates a complete service outage for the affected application or API endpoints.\n"
+      impactScore: 9
+      mitigation: |
+          - Check the health and status of each backend server in the upstream group
+          - Verify network connectivity between NGINX and the backend servers
+          - Review the NGINX upstream configuration for errors or typos
+          - Consider adding more backup servers to improve resilience
+          - Implement automatic health checks and failover mechanisms
+          - Ensure proper monitoring is in place to detect backend server failures quickly
+      mitigationScore: 5
+      references:
+          - https://last9.io/blog/quick-fixes-for-upstream-connect-errors/
+          - https://nginx.org/en/docs/http/ngx_http_upstream_module.html
+      severity: 1
+      tags:
+          - nginx
+          - load-balancer
+          - upstream-failure
+          - connectivity
+      title: NGINX No Live Upstreams Available
+      version: 0.1.0
+    metadata:
+      gen: 1
+      id: NGC1RZxGC5LJQnVpAkV11B
+      kind: prequel
+      version: 0.1.0
+    rule:
+      set:
+          event:
+              source: cre.log.nginx
+          match:
+              - regex: '[error].+no live upstreams while connecting to upstream'
