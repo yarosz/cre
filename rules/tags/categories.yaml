@@ -123,3 +123,7 @@ categories:
   - name: task-management-problem
     displayName: Task Management Problems
     description: Issues related to the management and execution of tasks and workflows.
+    description: "Problems related to message queue performance"
+  - name: ubuntu-desktop-problem
+    displayName: Ubuntu Desktop Problems
+    description: "Problems related to Ubuntu Desktop"

@@ -447,3 +447,15 @@ tags:
   - name: webhook
     displayName: webhook
     description: Problems related to webhooks.
+  - name: ubuntu
+    displayName: Ubuntu
+    description: Problems related to Ubuntu, such as package updates, or desktop issues
+  - name: gnome
+    displayName: Gnome
+    description: Problems related to Gnome, such as input lag, or performance issues
+  - name: nvidia
+    displayName: Nvidia
+    description: Problems related to Nvidia, such as driver issues, or performance issues
+  - name: xorg
+    displayName: Xorg
+    description: Problems related to Xorg, such as input lag, or performance issues
