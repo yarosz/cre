@@ -1,6 +1,6 @@
 rules:
 - cre:
-    id: CRE-2025-0059
+    id: CRE-2025-0058
     severity: 2
     title: Celery Worker Stops Consuming Tasks After Redis Restart
     category: task-management-problem
@@ -12,7 +12,7 @@ rules:
     cause: |
       - After Redis restarts, open connections from the Celery worker are closed by the server.
       - The Celery worker does not detect or recover from the dropped connection, entering a non‑responsive state.
-      - This issue is caused by a bug in Kombu (Celery’s messaging library) affecting connection recovery.
+      - This issue is caused by a bug in Kombu (Celery's messaging library) affecting connection recovery.
     tags:
       - celery
       - silent‑failure

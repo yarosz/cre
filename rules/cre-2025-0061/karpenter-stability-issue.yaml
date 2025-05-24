@@ -1,6 +1,6 @@
 rules:
 - cre:
-    id: CRE-2025-0062
+    id: CRE-2025-0061
     severity: 2
     title: Karpenter Stability Issues on EKS During Leader Election
     category: stability-problem

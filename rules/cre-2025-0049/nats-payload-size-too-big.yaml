@@ -1,6 +1,6 @@
 rules:
 - cre:
-    id: CRE-2025-0050
+    id: CRE-2025-0049
     severity: 3
     title: NATS Payload Size Too Big
     category: message-queue-problem

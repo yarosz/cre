@@ -1,12 +1,12 @@
 rules:
 - cre:
-    id: CRE-2025-0066
+    id: CRE-2025-0063
     severity: 2
     title: RabbitMQ disk monitor fails to initialize
     category: message-queue-problem
     author: Prequel
     description: |
-      - RabbitMQ’s disk monitor process cannot start or retrieve free‐space metrics, preventing it from detecting low‐disk conditions.
+      - RabbitMQ's disk monitor process cannot start or retrieve free‐space metrics, preventing it from detecting low‐disk conditions.
     cause: |
       - The disk monitoring plugin fails to initialize, often due to missing permissions, misconfigured file paths, or an unsupported operating system environment.
     tags:

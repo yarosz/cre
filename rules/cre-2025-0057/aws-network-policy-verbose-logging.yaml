@@ -1,6 +1,6 @@
 rules:
 - cre:
-    id: CRE-2025-0058
+    id: CRE-2025-0057
     severity: 3
     title: Verbose Logging in AWS Network Policy Agent During Policy Verdicts
     category: logging-problem

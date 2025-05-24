@@ -1,6 +1,6 @@
 rules:
 - cre:
-    id: CRE-2025-0060
+    id: CRE-2025-0059
     severity: 3
     title: Datadog CWS Instrumentation webhook registration fails without service account
     category: configuration-problem

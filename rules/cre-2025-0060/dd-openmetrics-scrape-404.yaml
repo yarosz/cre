@@ -1,6 +1,6 @@
 rules:
 - cre:
-    id: CRE-2025-0061
+    id: CRE-2025-0060
     severity: 3
     title: Datadog OpenMetrics Scrape Returns 404
     category: monitoring-problem

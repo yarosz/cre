@@ -1,6 +1,6 @@
 rules:
 - cre:
-    id: CRE-2025-0067
+    id: CRE-2025-0064
     severity: 1
     title: Terraform Cloud Authentication Failure
     category: provisioning-problem
@@ -8,9 +8,9 @@ rules:
     description: |
       - This error occurs when Terraform Cloud authentication fails due to missing or invalid API tokens, workspace or organization misconfiguration, or insufficient permissions.
     cause: |
-      - API Token Missing or Invalid: The workspace might be missing the TERRAFORM_CLOUD_TOKEN or it’s using a token that doesn’t have access to the right organization or workspace.
-      - Wrong Organization or Workspace Name: If your Terraform CLI or backend config points to a workspace or org that doesn’t exist or isn't accessible with your current credentials.
-      - Permissions Issue: The token you're using might be from a user that doesn’t have access to the specific workspace in Terraform Cloud.
+      - API Token Missing or Invalid: The workspace might be missing the TERRAFORM_CLOUD_TOKEN or it's using a token that doesn't have access to the right organization or workspace.
+      - Wrong Organization or Workspace Name: If your Terraform CLI or backend config points to a workspace or org that doesn't exist or isn't accessible with your current credentials.
+      - Permissions Issue: The token you're using might be from a user that doesn't have access to the specific workspace in Terraform Cloud.
     tags:
       - terraform
       - permissions
@@ -19,7 +19,7 @@ rules:
       - Set the TERRAFORM_CLOUD_TOKEN environment variable.
       - Double‑check your backend config.
       - Verify connectivity via the CLI.
-      - Check user access in Terraform Cloud: Go to your organization’s settings > teams > permissions.
+      - Check user access in Terraform Cloud: Go to your organization's settings > teams > permissions.
     references:
       - https://support.hashicorp.com/hc/en-us/articles/22973120543123-401-Unauthorized-Error-Downloading-State-from-API-After-Upgrade-to-Terraform-Enterprise-v202311-1
       - https://developer.hashicorp.com/terraform/cloud-docs/users-teams-organizations/api-tokens?utm_source=chatgpt.com
