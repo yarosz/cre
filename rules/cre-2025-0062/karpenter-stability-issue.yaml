@@ -48,11 +48,5 @@ rules:
         source: cre.log.karpenter
       window: 10s
       match:
-        - "karpenter.*panic: leader election lost"
-        - "*Failed to update lock"
-        - "*error retrieving resource lock.*TLS handshake timeout"
-        - "*http2: client connection lost"
-        - "failed to renew lease"
-        - "client-side throttling"
-        - "invariant violated registering host port usage"
- 
+        - value: "failed to renew lease"
+        - regex: "karpenter.*panic: leader election lost"

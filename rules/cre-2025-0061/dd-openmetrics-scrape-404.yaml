@@ -39,4 +39,4 @@ rules:
       event:
         source: cre.log.datadog
       match:
-        - "Error running check:.*openmetrics.*404 Client Error: Not Found for url: http://[0-9.]+:7801/metrics"
+        - regex: "Error running check:.*http://[0-9.]+:7801/metrics: 404 Client Error: Not Found for url: http://[0-9.]+:7801/metrics"

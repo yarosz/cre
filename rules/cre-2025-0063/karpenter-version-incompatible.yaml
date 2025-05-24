@@ -38,4 +38,4 @@ rules:
       event:
         source: cre.log.karpenter
       match:
-        - '{"level":"ERROR".*"karpenter version is not compatible with K8s version"}'
+        - regex: '"level": ?"ERROR".*karpenter version is not compatible with K8s version'

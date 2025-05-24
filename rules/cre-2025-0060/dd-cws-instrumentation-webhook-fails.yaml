@@ -45,5 +45,5 @@ rules:
       event:
         source: cre.log.datadog
       match:
-        - 'failed to register CWS Instrumentation webhook.*cluster_agent\.service_account_name'
+        - regex: 'failed to register CWS Instrumentation webhook.*cluster_agent\.service_account_name'
 
