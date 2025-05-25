@@ -1,0 +1,62 @@
+rules:
+  - metadata:
+      id: VQM1njAtrEf8kpJnEdgyzT
+      hash: Eg2xjMqhKEprGENhqmHtro
+      gen: 1
+      kind: prequel
+      version: "0.1.0"
+    cre:
+      id: CRE-2025-0069
+      severity: 2
+      title: "Kubernetes fsGroup ignored on NFS volumes"
+      category: "kubernetes-storage-problems"
+      tags:
+        - "kubernetes"
+        - "nfs"
+        - "securityContext"
+        - "permission-denied"
+      author: "Nicolas Yarosz"
+      description: >
+        Pods that mount NFS volumes and set `securityContext.fsGroup`
+        still have the directory owned by `root:root`. The kubelet does
+        not chown the share, so non-root containers fail with
+        "Permission denied".
+      impact: >
+        Application containers running as non-root cannot write to the
+        persistent volume, causing crashes, read-only behaviour, or data
+        loss.
+      impactScore: 6
+      cause: >
+        The kubelet applies `fsGroup` after the NFS mount; NFS preserves
+        server-side UID/GID. Ownership therefore remains `root:root`.
+      mitigation: >
+        **InitContainer fix-up:** - Add a short privileged initContainer that
+          runs `chown -R 0:<fsGroup> /mount && chmod 0770 /mount` before the
+          workload starts.
+
+        **Note:** Changing directory mode alone via `FOLDER_PERMISSIONS` is **not**
+        sufficient—the group ownership remains `root`, and writes still fail.)
+      mitigationScore: 4
+      references:
+        - "https://github.com/kubernetes/examples/issues/260"
+        - "https://stackoverflow.com/questions/50854701/kubernetes-permission-denied-for-mounted-nfs-volume"
+      reports: 0
+      version: "0.1.0"
+      applications:
+        - name: "kubelet"
+          processName: "kubelet"
+          version: "*"
+    rule:
+      set:
+        window: 5s
+        event:
+          source: cre.k8s.manifest
+        match:
+          - jq: '.kind == "PersistentVolume" and (.spec.nfs != null)'
+          - jq: >
+              .kind == "Pod"
+              and (.spec.securityContext.fsGroup != null)
+              and (.spec.securityContext.runAsUser // 0) != 0
+              and ( .spec.volumes[]?
+                    | (.nfs != null
+                      or .persistentVolumeClaim != null) )
