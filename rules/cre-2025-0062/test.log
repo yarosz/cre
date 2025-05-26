@@ -1,0 +1,1 @@
+2024-10-21T07:41:06.092990929-05:00   {"level":"ERROR","time":"2024-10-21T12:41:06.092Z","logger":"controller.machine.lifecycle","message":"karpenter version is not compatible with K8s version 1.29","commit":"cc85441","machine":"redacted","provisioner":"redacted-net"}
