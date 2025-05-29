@@ -1,4 +1,6 @@
 {
-  "contributors": ["tonymeehan", "Lyndon-prequel", "lsibilla", "fearfactor3", "genpage", "scunningham", "aleksmaus", "oatkiller", "kelseyhightower", "dosmanak", "yarosz"],
-  "message": "Welcome to the Problem Detection Community and thank you for your pull request!\n\nNew contributors need to sign the [Contributor License Agreement](https://github.com/prequel-dev/cre/blob/main/cla.md). In order for us to review and merge your code, please email contributor-agreement@prequel.dev with a link to this PR to complete the CLA process."
+  "contributors": ["tonymeehan", "Lyndon-prequel", "lsibilla", "fearfactor3", "genpage", "scunningham", "aleksmaus", "oatkiller", "kelseyhightower", "dosmanak", "yarosz", "elskow"],
+  "message": "Welcome to the Problem Detection Community and thank you for your pull request!\n\nNew contributors need to sign the [Contributor License Agreement](https://forms.gle/PfhcfopPNY2rho6V6). In order for us to review and merge your code, please click the [CLA link](https://forms.gle/PfhcfopPNY2rho6V6)  and fill out the form.",
+  "label": "CLA signed",
+  "recheckComment": "Thanks for tagging me. I looked for a signed form under your signature again, and updated the status on this PR. If the check was successful, no further action is needed. If the check was unsuccessful, please see the instructions in my first comment."
 }
