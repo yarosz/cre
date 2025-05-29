@@ -218,7 +218,7 @@ When adding a new rule, you must add a `test.log` file that contains the postive
 
 ## Signing the contributor license agreement
 
-New contributors need to sign the [Contributor License Agreement](https://github.com/prequel-dev/cre/blob/main/cla.md). This ensures that both you and the project are properly protected. Please email contributor-agreement@prequel.dev to complete the CLA process. If you’re unsure whether you need to sign the CLA, feel free to ask on Slack or open an issue.
+New contributors need to sign the [Contributor License Agreement](https://forms.gle/PfhcfopPNY2rho6V6). This ensures that both you and the project are properly protected. If you’re unsure whether you need to sign the CLA, feel free to ask on Slack or open an issue.
 
 ## Submitting a Pull Request
 
