@@ -6,15 +6,14 @@ rules:
       kind: prequel
     cre:
       id: CRE-2025-0071
-      severity: 2
+      severity: 1
       title: "CoreDNS unavailable - DNS outage imminent"
-      category: "kubernetes-dns-problems"
+      category: "kubernetes-problem"
       tags:
         - "kubernetes"
-        - "coredns"
+        - "networking"
         - "dns"
         - "high-availability"
-        - "service-discovery"
       author: "Nicolas Yarosz"
       description: >
         CoreDNS deployment is unavailable or has no ready endpoints, indicating
