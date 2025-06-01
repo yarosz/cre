@@ -4,7 +4,7 @@ rules:
       hash: Eg2xjMqhKEprGENhqmHtro
       gen: 1
       kind: prequel
-      version: "0.1.0"
+      version: "0.1.1"
     cre:
       id: CRE-2025-0069
       severity: 2
@@ -41,7 +41,7 @@ rules:
         - "https://github.com/kubernetes/examples/issues/260"
         - "https://stackoverflow.com/questions/50854701/kubernetes-permission-denied-for-mounted-nfs-volume"
       reports: 0
-      version: "0.1.0"
+      version: "0.1.1"
       applications:
         - name: "kubelet"
           processName: "kubelet"
